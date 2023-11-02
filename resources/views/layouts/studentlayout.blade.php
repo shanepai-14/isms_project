@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
@@ -12,12 +13,13 @@
   <!-- Favicons -->
   <link href="assets/img/favicon.png" rel="icon">
   <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
-
+   
   <!-- Google Fonts -->
   <link href="https://fonts.gstatic.com" rel="preconnect">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
   <!-- Vendor CSS Files -->
+ 
   <link href="{{ asset('assets/template/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
   <link href="{{ asset('assets/template/vendor/bootstrap-icons/bootstrap-icons.css')}}" rel="stylesheet">
   <link href="{{ asset('assets/template/vendor/boxicons/css/boxicons.min.css')}}" rel="stylesheet">
@@ -25,7 +27,7 @@
   <link href="{{ asset('assets/template/vendor/quill/quill.bubble.css')}}" rel="stylesheet">
   <link href="{{ asset('assets/template/vendor/remixicon/remixicon.css')}}" rel="stylesheet">
   <link href="{{ asset('assets/template/vendor/simple-datatables/style.css')}}" rel="stylesheet">
-
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <!-- Template Main CSS File -->
   <link href="{{ asset('assets/template/css/style.css')}}" rel="stylesheet">
   <style>
@@ -39,6 +41,7 @@
 
 </head>
 <body>
+
 {{--Page header --}}
 <header id="header" class="header fixed-top d-flex align-items-center">
 
@@ -328,6 +331,11 @@ $profile = $user->profiles;
           <li>
             <a href="{{route('student.enrollment')}}">
               <i class="bi bi-circle"></i><span>Enroll</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{route('student.enrollmentlist')}}">
+              <i class="bi bi-circle"></i><span>Enrollment List</span>
             </a>
           </li>
     

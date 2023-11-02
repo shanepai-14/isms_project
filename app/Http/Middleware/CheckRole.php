@@ -21,10 +21,19 @@ class CheckRole
             abort(403, 'Invalid role specified');
         }
 
-        $userRole = auth()->user()->role;
+        
+
+ try{
+    $userRole = auth()->user()->role;
+ }catch(\Exception $e){
+    return view('auth.login');
+ }
+
 
         if ($role != $userRole) {
             abort(403, 'Unauthorized');
+        }else if($userRole  == null || $role == null){
+            return view('auth.login');
         }
 
         return $next($request);

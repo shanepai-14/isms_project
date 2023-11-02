@@ -1,9 +1,11 @@
 <?php
 
+use App\Http\Controllers\EnrollmentController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\CourseController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -32,10 +34,16 @@ Route::group(['middleware' => 'checkRole:student'], function () {
     // Define routes accessible to students
     Route::get('/student/profile/{profileUuid}', [StudentController::class, 'showStudentProfile'])->name('student.profile');
     Route::get('/student/home', [StudentController::class, 'showStudentHome']);
-    Route::get('/student/enrollment', [StudentController::class, 'showStudentEnrollment'])->name('student.enrollment');;
+    Route::get('/student/enrollment', [StudentController::class, 'showStudentEnrollment'])->name('student.enrollment');
+    Route::get('/student/enrollmentlist', [EnrollmentController::class, 'populateEnrollmentTable'])->name('student.enrollmentlist');
     Route::get('/student/createprofile', [StudentController::class, 'showStudentProfileCreate'])->name('student.createprofile');
     Route::post('/', [StudentController::class, 'storeStudentProfile'])->name('storeStudentProfile');
     Route::put('/student/update/{profileUuid}', [StudentController::class, 'updateStudentProfile'])->name('student.profileupdate');
+    Route::get('/student/courses', [CourseController::class, 'create'])->name('student.courses');
+    Route::post('/', [CourseController::class, 'storeCourse'])->name('storeCourses');
+    Route::get('/get-subjects', [CourseController::class, 'getSubjects'])->name('get.subjects');
+    Route::post('/enrollments', [EnrollmentController::class, 'store'])->name('student.enroll');
+
 });
 
 Route::group(['middleware' => 'checkRole:registrar'], function () {
