@@ -11,9 +11,9 @@
         <div class="row align-items-center">
             <div class="header-text mb-1">
                 <div class="d-flex flex-row align-items-center justify-content-center"> <img src="{{ asset('assets/images/dvc-logo.png') }} " style="width: 70px;">  
-                    <h2 style="font-size: 80px; font-weight: bold; margin: 0; color: rgb(86, 86, 250);" >DVC</h2></div>
+                    <p style="font-size: 30px; font-weight: bold; margin: 0; color: rgb(86, 86, 250);" >DAVAO VISION COLLEGE</p></div>
            
-                    <p class="text-center mt-0 fs-5">REGISTER</p>
+                    <p class="text-center mt-0 fs-5">Create a Student Account</p>
             </div>
             
         </div>

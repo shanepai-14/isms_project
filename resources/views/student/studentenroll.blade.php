@@ -1,4 +1,7 @@
 @extends('layouts.studentlayout')
+<head>
+    <link href="{{ asset('assets/table/css/style.css') }}" rel="stylesheet">
+  </head>
 @section('content')
 <style>
 table {
@@ -51,18 +54,19 @@ table {
     
 <main id="main" class="main">
     <?php 
-    $currentDate = date('Y-m-d'); // Get today's date
+    $currentMonth = date('m'); // Get today's date
     $activeSemester;
     // Define the start dates of the two semesters
-    $firstSemesterStart = date('Y') . '-06-01'; // Assuming format is Y-m-d
-    $secondSemesterStart = date('Y') . '-01-01';
+
     
-    if ($currentDate >= $firstSemesterStart && $currentDate < $secondSemesterStart) {
+    if ($currentMonth >= 7 && $currentMonth <= 12) {
         $activeSemester = '1st Semester';
-        
-    } else {
+    } else if ($currentMonth >= 1 && $currentMonth <= 6) {
         $activeSemester = '2nd Semester';
+    } else {
+        return 'Invalid date';
     }
+
     ?>
       
     <div class="pagetitle">
@@ -77,7 +81,7 @@ table {
     </div><!-- End Page Title -->
 
     <section class="section profile">
-      <div class="row h-100">
+      <div class="row">
       
 
         <div class="col-xl-12" >
@@ -86,7 +90,7 @@ table {
             <div class="card-body pt-3">
               <!-- Bordered Tabs -->
               <div class="container mt-5 text-center position-relative">
-                <div id="loading-screen" style="display:none;">
+                <div id="loading-screen" style="display:none; z-index:2;">
                     <div id="loading-spinner"></div>
                     <div id="loading-text">Loading...</div>
                   </div>
@@ -97,9 +101,9 @@ table {
             
                     <div class="row justify-content-center">
                       
-                        <div class="col-lg-8">
+                        <div class="col-lg-12">
                         
-                            <div class="form-step" id="step1">
+                            <div class="col-lg-8 mx-auto align-items-center form-step" id="step1">
                                 <h3>Step 1: Select Enrollment Type</h3>
                                 <div class="row">
                                     <div class="col-md-6">
@@ -123,8 +127,11 @@ table {
                                     </div>
                                 </div>
                             </div>
+
+
+                            
             
-                            <div class="form-step" id="step2" style="display: none;">
+                            <div class="col-lg-8 mx-auto align-items-center form-step" id="step2" style="display: none;">
                                 <h3>Step 2: Select Course</h3>
                                 <div class="row justify-content-center">
                                     <!-- For College Enrollment -->
@@ -143,7 +150,7 @@ table {
                                                 <div class="card mb-3 custom-card">
                                                     <div class="card-body">
                                                         <h5 class="card-title pb-0 mb-0">BSED</h5>
-                                                        <p class="card-text ">BACHELOR OF SECONDARY EDUCATION</p>
+                                                        <p class="card-text ">BACHELOR OF SECONDARY <br>EDUCATION</p>
                                                         <a href="#" class="btn btn-primary next-step" data-course="BSED">Select</a>
                                                     </div>
                                                 </div>
@@ -161,7 +168,7 @@ table {
                                                 <div class="card mb-3 custom-card">
                                                     <div class="card-body ">
                                                         <h5 class="card-title pb-0 mb-0">AB-THEOLOGY</h5>
-                                                        <p class="card-text">BACHELOR OF ARTS IN THEOLOGY</p>
+                                                        <p class="card-text">BACHELOR OF ARTS IN<br> THEOLOGY</p>
                                                         <a href="#" class="btn btn-primary next-step" data-course="THEO">Select</a>
                                                     </div>
                                                 </div>
@@ -177,7 +184,7 @@ table {
                                                     <div class="card-body">
                                                         <h5 class="card-title">HUMSS</h5>
                                                         <p class="card-text">Click here for HUMSS</p>
-                                                        <a href="#" class="btn btn-primary next-step" data-course="STEM">HUMSS</a>
+                                                        <a href="#" class="btn btn-primary next-step" data-course="HUMSS">HUMSS</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -223,7 +230,7 @@ table {
                                 <button type="button" class="btn btn-primary prev-step">Previous</button>
                             </div>
             
-                            <div class="form-step" id="step3" style="display: none;">
+                            <div class="col-lg-8 mx-auto align-items-center form-step " id="step3" style="display: none;">
                                 <h3>Step 3: Select Year</h3>
                                 <div class="row justify-content-center">
                                     <!-- For College Enrollment -->
@@ -294,68 +301,136 @@ table {
                                 <button type="button" class="btn btn-primary prev-step">Previous</button>
                             </div>
             
-                            <div class="form-step" id="step4" style="display: none;">
+                            <div class="container form-step w-100 " id="step4" style="display: none; width:100%">
                                 <h3>Step 4: Select Subjects</h3>
-                                <div>
-                                    {{-- <p>Enrollment Type: <span id="reviewEnrollmentType"></span></p>
-                                    <p>Course: <span id="reviewCourse"></span></p>
-                                    <p>Year: <span id="reviewYear"></span></p>
-                                    <p>Subjects:</p>
-                                    <ul id="reviewSubjects"></ul> --}}
-                                    <table id="subjectTable" style="display:none;" class="table table-hover">
-                                        <tr style="border: 1px solid #040404;
-                                        text-align: left;">
-                                         <th colspan="2"><?php echo $activeSemester; ?></th>
-                                          <th colspan="2"> <span id="reviewYear"></span></th>
+                                <div class="row w-100">
                                   
-                                        </tr>
-                                        <tr style="border: 1px solid #040404;
-                                        text-align: left;">
-                                         <th>Status</th>
-                                          <th>Course Code</th>
-                                          <th>Course Description</th>
-                                          <th>Units</th>
-                                        </tr>
-                                       
-                                       
-                                      </table>
-
-                                    <div id="subjectCheckboxes" style="display:none;"></div>
-                                </div>
+                                      <section class="col ftco-section mt-0 p-0 w-100">
+                                        <div class="container w-100">
+                                          <div class="row">
+                                            <div class="col-md-12">
+                                              <div class="table-wrap">
+                                                <table class="table table-responsive-xl w-100 m-0 table table-hover">
+                                                 
+                                                  <thead>
+                                                    <tr >
+                                                     <th colspan="2"><?php echo $activeSemester; ?></th>
+                                                      <th colspan="2"> <span id="reviewYear"></span></th>
+                                                    </tr>
+                                                    <tr>
+                                                      <th>Select</th>
+                                                      <th>Course Code</th>
+                                                      <th>Course Description</th>
+                                                      <th>Units</th>
+                                                    </tr>
+                                                  </thead>
+                                                  <tbody id="subjectTable">
+                                                  
+                                                  </tbody>
+                                                </table>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <button type="button" class="btn btn-primary prev-step m-3">Previous</button>
+                                      <button type="button" class="btn btn-primary next-step m-3">Next</button>
+                                      </section>
+                                  
+                                      
+                                    </div>
                              
-                                <button type="button" class="btn btn-primary prev-step">Previous</button>
-                                <button type="button" class="btn btn-primary next-step">Next</button>
+                              
                               
                             </div>
 
             
-                            <div class="form-step" id="step5" style="display: none;">
+                            <div class="container form-step" id="step5" style="display: none;">
                                 <h3>Step 5: Review Selection</h3>
-                                <div>
+                                <div class="row"> 
                                     <p>Enrollment Type: <span id="reviewEnrollmentType"></span></p>
                             
-                                
-                                    <ul id="selectedSubjectsList"></ul>
-                                    <table id="selectedCoursesTable" class="table table-hover">
-                                        <thead>
-                                            <tr>
-                                                <th >Current Semester : <?php  echo  $activeSemester;?> </th>
-                                                <th>Course : <span id="reviewCourse" name="reviewCourse"></span></th>
-                                                <th>Year:<span id="reviewYear2" name="reviewYear2"></th>
-                                              
-                                            </tr>   
-                                            <tr>
-                                                <th>Course Code</th>
-                                                <th>Course Description</th>
-                                                <th>Units</th>
-                                            </tr>
-                                           
-                                        </thead>
-                                        <tbody id="selectedCoursesBody"></tbody>
-                                    </table>
+                                    <section class="col ftco-section mt-0 p-0 w-100">
+                                        <div class="container w-100">
+                                          <div class="row">
+                                            <div class="col-md-12">
+                                              <div class="table-wrap">
+                                                <table id="selectedCoursesTable" class="table table-responsive-xl w-100 m-0 table table-hover">
+                                                 
+                                                  <thead>
+                                                    <tr>
+                                                        <th colspan="2" class="p-0" ><h6 style="color: rgb(24, 24, 24)7, 26, 26)">Course : <span id="reviewCourse" name="reviewCourse"></span> <span id="reviewYear2" name="reviewYear2"></h6></th>
+                                                      
+                                                      <th class="p-0" style="color: rgb(24, 24, 24)7, 26, 26)"><h6>Current Semester : <?php  echo  $activeSemester;?> </h6></th>
+                                                    </tr>  
+                                                    <tr>
+                                                        <th>Course Code</th>
+                                                        <th>Course Description</th>
+                                                        <th>Units</th>
+                                                    </tr>
+                                                  </thead>
+                                                  <tbody id="selectedCoursesBody">
+                                                  
+                                                  </tbody>
+                                                </table>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </section>
+
+                                    
                                 </div>
-                                <button type="button" class="btn btn-primary prev-step">Previous</button>
-                                <button type="submit" class="btn btn-primary prev-step">submit</button>
+                                <button type="button" class="btn btn-primary prev-step m-3">Previous</button>
+                                <button type="submit" class="btn btn-primary next-step m-3" id="senoirhighbtn" style="display: none">submit</button>
+                                <button type="button" class="btn btn-primary" id="collegebtn" data-toggle="modal" data-target="#myModal" style="display: none;">
+                                    Next
+                                  </button>
+                                  
+                                  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                      <div class="modal-content">
+                                        <div class="modal-header">
+                                          <h5 class="modal-title" id="exampleModalLabel">Student Type</h5>
+                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                          </button>
+                                        </div>
+                                        <div class="modal-body">
+                                           <div class="row m-3">
+                                            <h7>Are you a Regular or Irregular Student?</h7>
+                                           </div>
+                                       <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="card mb-3 custom-card">
+                                                <div class="card-body">
+                                                    <h5 class="card-title">Regular</h5>
+                                                    <p class="card-text">Click here if you are Regular</p>
+                                                    <a href="#" class="btn btn-primary next-step" data-student-type="regular">Regular</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="card mb-3 custom-card">
+                                                <div class="card-body">
+                                                    <h5 class="card-title">Irregular</h5>
+                                                    <p class="card-text">Click here if you are Irregular</p>
+                                                    <a href="#" class="btn btn-primary next-step" data-student-type="irregular">Irregular</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                       </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  
+                            </div>
+
+                            <div class="container form-step" id="step6" style="display: none;">
+                                <h3>Uploading Enrollment</h3>
+                              
+
+                                  
                             </div>
                         </div>
                     </div>
@@ -389,7 +464,8 @@ table {
     var checkboxesContainer = $('#subjectTable'); 
     var selectedCourses;
     var currentStep = 1;
-
+    var studentType ;
+    var selectedCoursesBody = $('#selectedCoursesBody');
     function showLoadingScreen() {
   $('#loading-screen').show();
 }
@@ -398,10 +474,13 @@ function hideLoadingScreen() {
   $('#loading-screen').hide();
 }
 
+function sendStatus(status) {
 
+$('#myModal').modal('hide');
+}
 
 $(document).on('click', 'input[name="subject"]', function() {
-  
+   
     $('#reviewCourse').text(courses);
     var selectedCheckboxes = $('#subjectTable input[name="subject"]:checked');
     selectedCourses = [];
@@ -410,6 +489,7 @@ $(document).on('click', 'input[name="subject"]', function() {
         var courseCode = $(this).closest('tr').find('.course-code').text();
         var courseDescription = $(this).closest('tr').find('.course-description').text();
         var units = $(this).closest('tr').find('.units').text();
+        
 
         var courseInfo = {
             id: id,
@@ -420,20 +500,21 @@ $(document).on('click', 'input[name="subject"]', function() {
             year: year,
             semester :semester,
             enrollment_type : $('#reviewEnrollmentType').text(),
+          
         };
          console.log(selectedCourses);
         selectedCourses.push(courseInfo);
     });
-    var selectedCoursesBody = $('#selectedCoursesBody');
+
     selectedCoursesBody.empty();
 
     selectedCourses.forEach(function(course) {
         var row = $('<tr></tr>');
         
-        row.append('<td style="display:none;">' + course.id + '</td>');
-        row.append('<td>' + course.courseCode + '</td>');
-        row.append('<td>' + course.courseDescription + '</td>');
-        row.append('<td>' + course.units + '</td>');
+        row.append('<td class="pt-3 pb-3" style="display:none;">' + course.id + '</td>');
+        row.append('<td class="pt-3 pb-3">' + course.courseCode + '</td>');
+        row.append('<td class="pt-3 pb-3">' + course.courseDescription + '</td>');
+        row.append('<td class="pt-3 pb-3">' + course.units + '</td>');
         selectedCoursesBody.append(row);
     });
 
@@ -447,13 +528,19 @@ $(document).on('click', 'input[name="subject"]', function() {
                 if ($(this).data('enrollment-type') == 'college') {
                     $('#collegeCourses').show();
                     $('#collegeYears').show();
+                    $('#senoirhighbtn').hide();
+                    $('#collegebtn').show();
                     $('#seniorHighCourses').hide();
                     $('#seniorHighYears').hide();
+                    selectedCoursesBody.empty();
                 } else if ($(this).data('enrollment-type') == 'Senior High') {
                     $('#collegeCourses').hide();
                     $('#collegeYears').hide();
+                    $('#collegebtn').hide();
+                    $('#senoirhighbtn').show();
                     $('#seniorHighCourses').show();
                     $('#seniorHighYears').show();
+                    selectedCoursesBody.empty();
                 }
             }
             if ($(this).data('course')) {
@@ -463,6 +550,42 @@ $(document).on('click', 'input[name="subject"]', function() {
                 $('#reviewYear').text($(this).data('year'));    
                 $('#reviewYear2').text($(this).data('year'));   
             }
+            if ($(this).data('student-type')) {
+              if($(this).data('student-type') == 'regular' || $(this).data('student-type') == 'irregular' ){
+                $('#myModal').modal('hide');
+                studentType = $(this).data('student-type');
+                console.log(studentType);
+                $.ajax({
+        url: '{{ route('student.enroll') }}', // Replace with your actual endpoint
+        type: 'POST',
+        headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    },
+        contentType: 'application/json',
+        data: JSON.stringify({
+        selectedCourses: selectedCourses,
+        student_type: studentType
+  }),
+        success: function(response) {
+            // Handle success response from the backend
+            console.log('Data sent successfully:', response);
+            hideLoadingScreen();
+            window.location.href = "{{ route('student.enrollmentlist') }}";
+        },
+        error: function(error) {
+            // Handle error response from the backend
+            console.error('Error sending data:', error);
+            hideLoadingScreen();
+            console.log(selectedCourses);
+            console.log(studentType);
+        }
+    });
+                
+              }
+            }
+
+
+
             $('#step'+currentStep).hide();
             $('#step'+(currentStep+1)).show();
             $('.progress-bar').css('width', (currentStep+1)*20+'%');
@@ -476,36 +599,26 @@ $(document).on('click', 'input[name="subject"]', function() {
             $('#step'+(currentStep-1)).show();
             $('.progress-bar').css('width', (currentStep-1)*20+'%');
             currentStep--;
+
+           
           if(currentStep == 3){
            
             checkboxesContainer.empty();
-            checkbox = $('<tr style="border: 1px solid #040404; text-align: left;">' +
-                            '<th colspan="2"><?php echo $activeSemester; ?></th>'+
-                            '<th colspan="2"> <span id="reviewYear"></span></th>' +
-                             
-                        '</tr>'
-                        +
-                        '<tr style="border: 1px solid #040404; text-align: left;">' +
-                                          '<th>Status</th>'+
-                                          '<th>Course Code</th>'+
-                                          '<th>Course Description</th>'+
-                                          '<th>Units</th>'+
-                             
-                        '</tr>');
-        checkboxesContainer.append(checkbox);
 
-
+            selectedCoursesBody.empty();
 
           }
          
           
         });
 
+
         $('#enrollmentForm').submit(function(e) {
+             $('#myModal').modal('hide');
             e.preventDefault();
            var data ;
            showLoadingScreen();
-     
+           studentType = 'regular';
             $.ajax({
         url: '{{ route('student.enroll') }}', // Replace with your actual endpoint
         type: 'POST',
@@ -513,7 +626,10 @@ $(document).on('click', 'input[name="subject"]', function() {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     },
         contentType: 'application/json',
-        data: JSON.stringify(selectedCourses),
+        data: JSON.stringify({
+        selectedCourses: selectedCourses,
+        student_type: studentType
+  }),
         success: function(response) {
             // Handle success response from the backend
             console.log('Data sent successfully:', response);
@@ -530,10 +646,6 @@ $(document).on('click', 'input[name="subject"]', function() {
     });
 
 
-
-
-
-
             courses = $('#course').val();
             $('#reviewCourse').text(courses);
             $('#step'+currentStep).hide();
@@ -543,11 +655,13 @@ $(document).on('click', 'input[name="subject"]', function() {
         });
 
         $('.select-year').click(function() {
+            showLoadingScreen();
              year = $(this).data('year');
              semester = '<?php echo $activeSemester; ?>';
             $('#reviewYear').text(year);
             $('#reviewYear2').text(year);
-            showLoadingScreen();
+            console.log(year);
+           
             $.ajax({
                 url: '{{ route('get.subjects') }}', // Adjust the URL as per your routes
                 type: 'GET',
@@ -561,21 +675,27 @@ $(document).on('click', 'input[name="subject"]', function() {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     },
                 success: function(response) {
-                    var subjectList = $('#subjectCheckboxes');
-                    subjectList.empty();
-                    hideLoadingScreen();
+               
+                
+              
                     subjects = response.data; // Assuming 'data' is an array of subjects
-
-    // Assuming you have an element with the id 'subjectCheckboxes' where you want to append the checkboxes
-  
+                  
     // Loop through the subjects and create checkboxes
-  
+    
+
+
+
+
     subjects.forEach(function(subject, index) {
         checkbox = $('<tr data-id='+ subject.id+'>' +
-                            '<td><input type="checkbox" class="form-check-input" id="subject' + index + '" name="subject" value="' + subject.course_code + '"></td>' +
-                            '<td class="course-code"><label class="form-check-label" for="subject' + index + '">'+ subject.course_code + '</label></td>' +
-                            '<td class="course-description"><label class="form-check-label" for="subject' + index + '">'+ subject.course_description + '</label></td>' +
-                            '<td  class="units"><label class="form-check-label" for="subject' + index + '">'+ subject.units + '</label></td>' +
+                            '<td class="pt-3 pb-3"><label class="checkbox-wrap checkbox-primary mb-0 mt-2">'+
+										  '<input type="checkbox" class="form-check-input" id="subject' + index + '" name="subject" value="' + subject.course_code + '">'+
+										  '<span class="checkmark"></span>'+
+										'</label>'+
+                                        '</td>' +
+                            '<td class="course-code pt-3 pb-3"><label class="form-check-label" for="subject' + index + '">'+ subject.course_code + '</label></td>' +
+                            '<td class="course-description pt-3 pb-3 pr-0"><label class="form-check-label" for="subject' + index + '">'+ subject.course_description + '</label></td>' +
+                            '<td  class="units pt-3 pb-3 "><label class="form-check-label" for="subject' + index + '">'+ subject.units + '</label></td>' +
                         '</tr');
         checkboxesContainer.append(checkbox);
        
@@ -584,7 +704,7 @@ $(document).on('click', 'input[name="subject"]', function() {
     duplicateChecker++;
     checkboxesContainer.show();
   
-
+              hideLoadingScreen();
     // Show the checkboxes container
                console.log(semester);
               console.log(duplicateChecker);
@@ -610,25 +730,6 @@ $(document).on('click', 'input[name="subject"]', function() {
         });
 
 
-        // function updateSubjectReview() {
-        //     var selectedSubjects = [];
-        //     $('#year1Subjects input[type="checkbox"]:checked').each(function() {
-        //         selectedSubjects.push($(this).val());
-        //     });
-
-        //     $('#year2Subjects input[type="checkbox"]:checked').each(function() {
-        //         selectedSubjects.push($(this).val());
-        //     });
-
-        //     var subjectList = $('#reviewSubjects');
-        //     subjectList.empty();
-
-        //     for (var i = 0; i < selectedSubjects.length; i++) {
-        //         var listItem = $('<li></li>');
-        //         listItem.text(selectedSubjects[i]);
-        //         subjectList.append(listItem);
-        //     }
-        // }
     }
     
     );
@@ -636,25 +737,3 @@ $(document).on('click', 'input[name="subject"]', function() {
 </script>
   
 @endsection
-{{-- <script>
-  $(document).ready(function() {
-      $('#changePasswordButton').click(function() {
-          var formData = $('#passwordUpdateForm').serialize();
-          
-          $.ajax({
-              url: $('#passwordUpdateForm').attr('action'),
-              type: 'PUT',
-              data: formData,
-              success: function(response) {
-                  // Handle success response
-                  if (response.status === 'password-updated') {
-                      // Show success message here
-                  }
-              },
-              error: function(error) {
-                  // Handle error response
-              }
-          });
-      });
-  });
-</script> --}}

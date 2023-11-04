@@ -37,12 +37,13 @@ Route::group(['middleware' => 'checkRole:student'], function () {
     Route::get('/student/enrollment', [StudentController::class, 'showStudentEnrollment'])->name('student.enrollment');
     Route::get('/student/enrollmentlist', [EnrollmentController::class, 'populateEnrollmentTable'])->name('student.enrollmentlist');
     Route::get('/student/createprofile', [StudentController::class, 'showStudentProfileCreate'])->name('student.createprofile');
-    Route::post('/', [StudentController::class, 'storeStudentProfile'])->name('storeStudentProfile');
+    Route::post('/storeStudentProfile', [StudentController::class, 'storeStudentProfile'])->name('storeStudentProfile');
     Route::put('/student/update/{profileUuid}', [StudentController::class, 'updateStudentProfile'])->name('student.profileupdate');
     Route::get('/student/courses', [CourseController::class, 'create'])->name('student.courses');
     Route::post('/', [CourseController::class, 'storeCourse'])->name('storeCourses');
     Route::get('/get-subjects', [CourseController::class, 'getSubjects'])->name('get.subjects');
     Route::post('/enrollments', [EnrollmentController::class, 'store'])->name('student.enroll');
+    Route::get('/getClassesId', [EnrollmentController::class, 'populateClassesTable'])->name('getClassesId');
 
 });
 

@@ -58,19 +58,31 @@ http://www.templatemo.com/tm-509-hydro
 
                     <ul class="nav navbar-nav navbar-right">
                         
-                         <li class="section-btn">         @if (Route::has('login'))
-                            <div class="sm:fixed sm:top-0 sm:right-0 p-6 text-right z-10">
+                              @if (Route::has('login'))
+                            
                                 @auth
+                                <li class="section-btn">   
+                                <div class="sm:fixed sm:top-0 sm:right-0  z-5">
                                     <a href="{{ url('/home') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Dashboard</a>
+                                   </div>
+                              </li>
                                 @else
+                                <li class="section-btn">  
+                                <div class="sm:fixed sm:top-0 sm:right-0  z-5">
                                     <a href="{{ route('login') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Log in</a>
-            
+                                   </div>
+                              </li>
                                     @if (Route::has('register'))
+                                    <li class="section-btn">  
+                                    <div class="sm:fixed sm:top-0 sm:right-0  z-5">
                                         <a href="{{ route('register') }}" class="ml-4 font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Register</a>
+
+                                   </div>
+                              </li>
                                     @endif
                                 @endauth
                             </div>
-                        @endif</li>
+                        @endif
                     </ul>
                </div>
 
@@ -87,7 +99,7 @@ http://www.templatemo.com/tm-509-hydro
                     <div class="col-md-6 col-sm-12">
                          <div class="home-info">
                               <h1>Moving Towards<br> Excellence</h1>
-                              <a href="#about" class="btn section-btn smoothScroll">Enroll Now</a>
+                              <a href="{{ route('register') }}" class="btn section-btn smoothScroll">Enroll Now</a>
                               <span>
                                    CALL US (+66) 010-020-0340
                                    <small>For any inquiry</small>
