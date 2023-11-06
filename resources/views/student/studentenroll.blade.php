@@ -137,7 +137,38 @@ table {
                                     <!-- For College Enrollment -->
                                     <div class="col-lg-12" id="collegeCourses" style="display: none;">
                                         <div class="row">
-                                            <div class="col-md-6">
+                                       
+                                            <div class="col-sm-4">
+                                                <div class="card mb-3 custom-card">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title pb-0 mb-0">BSED</h5>
+                                                        <p class="card-text ">BACHELOR OF SECONDARY <br>EDUCATION MAJOR IN MATH</p>
+                                                        <a href="#" class="btn btn-primary next-step" data-course="BSED-MATH">Select</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="card mb-3 custom-card">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title pb-0 mb-0">BSED</h5>
+                                                        <p class="card-text ">BACHELOR OF SECONDARY <br>EDUCATION MAJOR IN ENGLISH</p>
+                                                        <a href="#" class="btn btn-primary next-step" data-course="BSED-ENGLISH">Select</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="card mb-3 custom-card">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title pb-0 mb-0">BEED</h5>
+                                                        <p class="card-text">BACHELOR  <br>OF<br> ELEMENTARY EDUCATION</p>
+                                                        <a href="#" class="btn btn-primary next-step" data-course="BEED">Select</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                          
+                                        </div>
+                                        <div class="row justify-content-center">
+                                            <div class="col-sm-4">
                                                 <div class="card mb-3 custom-card">
                                                     <div class="card-body">
                                                         <h5 class="card-title pb-0 mb-0">BSIT</h5>
@@ -146,29 +177,11 @@ table {
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
-                                                <div class="card mb-3 custom-card">
-                                                    <div class="card-body">
-                                                        <h5 class="card-title pb-0 mb-0">BSED</h5>
-                                                        <p class="card-text ">BACHELOR OF SECONDARY <br>EDUCATION</p>
-                                                        <a href="#" class="btn btn-primary next-step" data-course="BSED">Select</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="card mb-3 custom-card">
-                                                    <div class="card-body">
-                                                        <h5 class="card-title pb-0 mb-0">BEED</h5>
-                                                        <p class="card-text">BACHELOR OF ELEMENTARY EDUCATION</p>
-                                                        <a href="#" class="btn btn-primary next-step" data-course="BEED">Select</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
+                                            <div class="col-sm-4">
                                                 <div class="card mb-3 custom-card">
                                                     <div class="card-body ">
                                                         <h5 class="card-title pb-0 mb-0">AB-THEOLOGY</h5>
-                                                        <p class="card-text">BACHELOR OF ARTS IN<br> THEOLOGY</p>
+                                                        <p class="card-text">BACHELOR  OF <br>ARTS IN<br> THEOLOGY</p>
                                                         <a href="#" class="btn btn-primary next-step" data-course="THEO">Select</a>
                                                     </div>
                                                 </div>
@@ -206,6 +219,7 @@ table {
                                                     </div>
                                                 </div>
                                             </div>
+                                         <div class="row justify-content-center">
                                             <div class="col-md-4">
                                                 <div class="card mb-3 custom-card">
                                                     <div class="card-body">
@@ -224,6 +238,7 @@ table {
                                                     </div>
                                                 </div>
                                             </div>
+                                         </div>
                                         </div>
                                     </div>
                                 </div>

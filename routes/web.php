@@ -44,7 +44,7 @@ Route::group(['middleware' => 'checkRole:student'], function () {
     Route::get('/get-subjects', [CourseController::class, 'getSubjects'])->name('get.subjects');
     Route::post('/enrollments', [EnrollmentController::class, 'store'])->name('student.enroll');
     Route::get('/getClassesId', [EnrollmentController::class, 'populateClassesTable'])->name('getClassesId');
-
+    Route::get('/search', [EnrollmentController::class, 'StudentSearch'])->name('search');
 });
 
 Route::group(['middleware' => 'checkRole:registrar'], function () {
