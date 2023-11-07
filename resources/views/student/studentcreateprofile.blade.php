@@ -30,7 +30,135 @@
   <link href="{{ asset('assets/template/css/style.css')}}" rel="stylesheet">
 
 </head>
+<style>
+  #snackbar {
+  display: none;
+  min-width: 250px;
+  padding: 16px;
+  border-radius: 4px;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  
+}
+  .profile-pic-wrapper {
+  height: 40vh;
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.pic-holder {
+  text-align: center;
+  position: relative;
+  border-radius: 50%;
+  width: 150px;
+  height: 150px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
 
+.pic-holder .pic {
+  height: 100%;
+  width: 100%;
+  -o-object-fit: cover;
+  object-fit: cover;
+  -o-object-position: center;
+  object-position: center;
+}
+
+.pic-holder .upload-file-block,
+.pic-holder .upload-loader {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(90, 92, 105, 0.7);
+  color: #f8f9fc;
+  font-size: 12px;
+  font-weight: 600;
+  opacity: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.pic-holder .upload-file-block {
+  cursor: pointer;
+}
+
+.pic-holder:hover .upload-file-block,
+.uploadProfileInput:focus ~ .upload-file-block {
+  opacity: 1;
+}
+
+.pic-holder.uploadInProgress .upload-file-block {
+  display: none;
+}
+
+.pic-holder.uploadInProgress .upload-loader {
+  opacity: 1;
+}
+
+/* Snackbar css */
+
+
+@-webkit-keyframes fadein {
+  from {
+    bottom: 0;
+    opacity: 0;
+  }
+  to {
+    bottom: 30px;
+    opacity: 1;
+  }
+}
+
+@keyframes fadein {
+  from {
+    bottom: 0;
+    opacity: 0;
+  }
+  to {
+    bottom: 30px;
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes fadeout {
+  from {
+    bottom: 30px;
+    opacity: 1;
+  }
+  to {
+    bottom: 0;
+    opacity: 0;
+  }
+}
+
+@keyframes fadeout {
+  from {
+    bottom: 30px;
+    opacity: 1;
+  }
+  to {
+    bottom: 0;
+    opacity: 0;
+  }
+}
+
+</style>
 
 <body>
   <header id="header" class="header fixed-top d-flex align-items-center ">
@@ -104,11 +232,40 @@
    
      <div class="col-md-3">  <h5 class="card-title">Create your student profile</h5> </div>
    
-      <p>You need to complete the registration to proccedd to dashboard </p>
-
+      <p>You need to complete the registration to procced to dashboard </p>
+      @if(session('error'))
+      <div class="alert alert-danger">
+          {{ session('error') }}
+      </div>
+      
+  @endif
       <!-- Custom Styled Validation with Tooltips -->
-      <form class="row g-3 needs-validation" action="{{ route('storeStudentProfile') }}" method="POST" novalidate>
+      <form class="row g-3 needs-validation" enctype="multipart/form-data"  action="{{ route('storeStudentProfile') }}" method="POST" novalidate>
         @csrf
+
+        <div class="profile-pic-wrapper">
+          <div class="pic-holder">
+            <!-- uploaded pic shown here -->
+            <img id="profilePic" class="pic" src="{{ asset('assets/images/student.jpg')}}">
+            
+            <img id="preview" class="pic" src="#" style="display: none;">
+
+            <input class="uploadProfileInput" type="file" name="avatar" id="newProfilePhoto" accept="image/*" style="opacity: 0;"onchange="getImagePreview(event)"/>
+            <label for="newProfilePhoto" class="upload-file-block">
+              <div class="text-center">
+                <div class="mb-2">
+                  <i class="fa fa-camera fa-2x"></i>
+                </div>
+                <div class="text-uppercase">
+                  Update <br /> Profile Photo
+                </div>
+              </div>
+            </label>
+          </div>
+        
+          </hr>
+          <p class=" text-center small">Required: Upload ID picture </p>
+        </div>
         <div class="col-md-4 position-relative">
           <label for="validationTooltip01" class="form-label">First name</label>
           <input type="text"  name="first_name" class="form-control" id="validationTooltip01" value="" required>
@@ -183,8 +340,27 @@
           <div class="invalid-tooltip">
             Please provide a address.
           </div>
-        </div>
+        </div >
+        <div class="col-md-12 mb-0 pb-0">  <h5 class="card-title pb-0 mb-0">Required Documents</h5> <p class="pt-0 mb-0" style="font-size: 14px; color:red;">
+          Note : Upload in PDF format</p> </div>
+          
 
+<div class="col-md-3 position-relative">
+  <label class="form-label" for="customFile">PSA Birth<span style="font-size:14px; color:red;"> (Required for New Students)</span></label>
+  <input type="file" class="form-control" name="psaBirth_doc" id="customFile" />
+</div>
+<div class="col-md-3 position-relative">
+  <label class="form-label" for="customFile">Good moral <span style="font-size:14px; color:red;"> (Required for New Students)</span></label>
+  <input type="file" class="form-control" name="goodMoral_doc"id="customFile" />
+</div>
+<div class="col-md-3 position-relative">
+  <label class="form-label" for="customFile">TOR/Report Card<span style="font-size:14px; color:red;"> (Required for New Students)</span></label>
+  <input type="file" class="form-control" name="tor_doc" id="customFile" />
+</div>
+<div class="col-md-3 position-relative">
+  <label class="form-label" for="customFile">Form 137<span style="font-size:14px; color:red;"> (Required for New Students)</span></label>
+  <input type="file" class="form-control" name="form137_doc" id="customFile" />
+</div>
 
         <div class="col-12">
           <button class="btn btn-primary" type="submit">Submit form</button>
@@ -193,6 +369,7 @@
       
     </div>
   </div>
+  <div id="snackbar" style="display: none; font-size:13px"></div>
 
   <footer id="" class="footer">
     <div class="copyright">
@@ -223,3 +400,91 @@
 
   <!-- Template Main JS File -->
   <script src="{{ asset('assets/template/js/main.js') }}"></script>
+  <script>
+
+
+// document.addEventListener("change", function(event) {
+//   if (event.target.classList.contains("uploadsdsProfileInput")) {
+//     var triggerInput = event.target;
+//     var currentImg = triggerInput.closest(".pic-holder").querySelector(".pic").src;
+//     var holder = triggerInput.closest(".pic-holder");
+//     var wrapper = triggerInput.closest(".profile-pic-wrapper");
+    
+//     var alerts = wrapper.querySelectorAll('[role="alert"]');
+//     alerts.forEach(function(alert) {
+//       alert.remove();
+//     });
+
+//     triggerInput.blur();
+//     var files = triggerInput.files || [];
+//     if (!files.length || !window.FileReader) {
+//       return;
+//     }
+    
+//     if (/^image/.test(files[0].type)) {
+//       var reader = new FileReader();
+//       reader.readAsDataURL(files[0]);
+
+//       reader.onloadend = function() {
+//         holder.classList.add("uploadInProgress");
+//         holder.querySelector(".pic").src = this.result;
+
+//         var loader = document.createElement("div");
+//         loader.classList.add("upload-loader");
+//         loader.innerHTML = '<div class="spinner-border text-primary" role="status"><span class="sr-only">Loading...</span></div>';
+//         holder.appendChild(loader);
+
+//         setTimeout(function() {
+//           holder.classList.remove("uploadInProgress");
+//           loader.remove();
+
+//           var random = Math.random();
+//           if (random < 0.9) {
+//             wrapper.innerHTML += '<div class="snackbar show" role="alert"><i class="fa fa-check-circle text-success"></i> Profile image updated successfully</div>';
+//             triggerInput.value = "";
+//             setTimeout(function() {
+//               wrapper.querySelector('[role="alert"]').remove();
+//             }, 3000);
+//           } else {
+//             holder.querySelector(".pic").src = currentImg;
+//             wrapper.innerHTML += '<div class="snackbar show" role="alert"><i class="fa fa-times-circle text-danger"></i> There is an error while uploading! Please try again later.</div>';
+//             triggerInput.value = "";
+//             setTimeout(function() {
+//               wrapper.querySelector('[role="alert"]').remove();
+//             }, 3000);
+//           }
+//         }, 1500);
+//       };
+//     } else {
+//       wrapper.innerHTML += '<div class="alert alert-danger d-inline-block p-2 small" role="alert">Please choose a valid image.</div>';
+//       setTimeout(function() {
+//         var invalidAlert = wrapper.querySelector('[role="alert"]');
+//         if (invalidAlert) {
+//           invalidAlert.remove();
+//         }
+//       }, 3000);
+//     }
+//   }
+// });
+
+function getImagePreview(event){
+  var image =URL.createObjectURL(event.target.files[0]);
+   var oldAvatar = document.getElementById('profilePic'); 
+  var previewElement = document.getElementById('preview');  
+  
+  oldAvatar.style.display = 'none'; 
+  previewElement.style.display = 'block'; 
+  previewElement.src = image;
+  showSnackbar("ID picture updated successfully");
+  
+}
+function showSnackbar(message) {
+  var snackbar = document.getElementById("snackbar");
+  snackbar.style.display = "block";
+  snackbar.textContent = message;
+  // After 3 seconds, hide the snackbar
+  setTimeout(function(){
+    snackbar.style.display = "none";
+  }, 3000);
+}
+  </script>

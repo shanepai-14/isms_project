@@ -1,19 +1,22 @@
 <?php
 
 namespace App\Http\Controllers;
-use Illuminate\Database\Capsule\Manager as Capsule;
+
 use Illuminate\Http\Request;
 use App\Models\StudentProfile;
-use Illuminate\Support\Facades\DB;
+
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
 use App\Models\User;
-use Illuminate\Database\Eloquent\Model;
-use PhpParser\Node\Stmt\TryCatch;
 
 class StudentController extends Controller
 {
     //
+
+    public function studentUnauthorized(){
+        return view('student.studentAccountApproval');
+    }
     public function showStudentProfile($profileUuid)
     {
        $studentprofile=Auth()->user()->profile_id;
@@ -52,62 +55,73 @@ class StudentController extends Controller
     public function storeStudentProfile(Request $request)
     {
         // Validate the form input (you can add more validation rules)
-        $request->validate([
-            'first_name' => 'required|string|max:20',
-            'middle_name' => 'required|string|max:20',
-            'last_name' => 'required|string|max:20',
-            'gender' => 'required|string|max:10',
-            'users_contact_number' => 'required|string|max:11',
-            'date_of_birth' => 'date',
-            'father_fullname' => 'required|string|max:50',
-            'mother_fullname' => 'required|string|max:50',
-            'parent_contact_number' => 'required|string|max:11',
-            'address' => 'required|string|max:255',
-            
-
-            // Add validation rules for other attributes
-        ]);
+  try{
     
-        // Create a new student profile
-        $studentProfile = StudentProfile::create([
-            'uuid' => Str::uuid(),
-            'first_name' => $request->input('first_name'),
-            'middle_name' => $request->input('middle_name'),
-            'last_name' => $request->input('last_name'),
-            'gender' => $request->input('gender'),
-            'users_contact_number' =>$request->input('users_contact_number'),
-            'date_of_birth' => $request->input('date_of_birth'),
-            'father_fullname' => $request->input('father_fullname'),
-            'mother_fullname' =>$request->input('mother_fullname'),
-            'parent_contact_number' => $request->input('parent_contact_number'),
-            'address' => $request->input('address'),
-            // Add other attributes as needed
-        ]);
+    $request->validate([
+        'avatar' => 'required|file|image|mimes:jpeg,png,jpg|max:2048',
+        'first_name' => 'required|string|max:20',
+        'middle_name' => 'required|string|max:20',
+        'last_name' => 'required|string|max:20',
+        'gender' => 'required|string|max:10',
+        'users_contact_number' => 'required|string|max:11',
+        'date_of_birth' => 'date',
+        'father_fullname' => 'required|string|max:50',
+        'mother_fullname' => 'required|string|max:50',
+        'parent_contact_number' => 'required|string|max:11',
+        'address' => 'required|string|max:255',
     
-        // Optionally, you can associate the student profile with a user here
-        $user = auth()->user()->id;
-       
-
-       // $user->profiles()->save();
-
-        $profileId = $studentProfile->id; // Replace with the actual profile ID you want to assign
-        $users = User::find($user); // Replace $userId with the actual user ID
-
-        if ($users) {
-            $users->profile_id = $profileId;
-            $users->save();
-        } else {
-            // Handle the case where the user with $userId was not found
-        }
-
-
+        // Add validation rules for other attributes
+    ]);
     
-         return redirect('/student/home')->with('message', 'Student profile created successfully!');
+    if ($request->hasFile('avatar')) {
+        $path = $request->file('avatar')->store('profile', 'public');
+    }
+    // Create a new student profile
+    $studentProfile = StudentProfile::create([
+        'uuid' => Str::uuid(),
+        'first_name' => $request->input('first_name'),
+        'middle_name' => $request->input('middle_name'),
+        'last_name' => $request->input('last_name'),
+        'gender' => $request->input('gender'),
+        'users_contact_number' =>$request->input('users_contact_number'),
+        'date_of_birth' => $request->input('date_of_birth'),
+        'father_fullname' => $request->input('father_fullname'),
+        'mother_fullname' =>$request->input('mother_fullname'),
+        'parent_contact_number' => $request->input('parent_contact_number'),
+        'address' => $request->input('address'),
+        'avatar' => $path,
+    
+    ]);
+
+    // Optionally, you can associate the student profile with a user here
+    $user = auth()->user()->id;
+   
+
+   // $user->profiles()->save();
+
+    $profileId = $studentProfile->id; // Replace with the actual profile ID you want to assign
+    $users = User::find($user); // Replace $userId with the actual user ID
+
+    if ($users) {
+        $users->profile_id = $profileId;
+        $users->save();
+    } else {
+    
+    }
+
+
+
+     return redirect('/student/home')->with('message', 'Student profile created successfully!');
+
+  }catch(\Exception $e){
+    return redirect()->back()->with('error', 'An error occurred while uploading the document.');
+  }
     }
 
     public function updateStudentProfile($profileUuid, Request $request)
 {
     $request->validate([
+        'avatar' => 'required|file|image|mimes:jpeg,png,jpg|max:2048',
         'first_name' => 'required|string|max:20',
         'middle_name' => 'required|string|max:20',
         'last_name' => 'required|string|max:20',
@@ -124,9 +138,22 @@ class StudentController extends Controller
     ]);
 
     $studentProfile = StudentProfile::where('uuid', $profileUuid)->first();
+
     try{
+        $oldAvatarPath = $studentProfile->avatar;
+    if ($request->hasFile('avatar')) {
+        $path = $request->file('avatar')->store('profile', 'public');
+    
+    } else {
+        $path = $request->user()->avatar;
+    }
+    if ($oldAvatarPath) {
+        Storage::disk('public')->delete($oldAvatarPath);
+    }
+    
         if ($studentProfile) {
             $studentProfile->update([
+                'avatar' => $path,
                 'first_name' => $request->input('first_name'),
                 'middle_name' => $request->input('middle_name'),
                 'last_name' => $request->input('last_name'),

@@ -17,24 +17,11 @@
       <div class="row">
         <div class="col-xl-4">
 
+      
           <div class="card">
             <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
 
-              <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
-              <h2>{{ Auth::user()->name }}</h2>
-              <h3>{{ ucfirst(Auth::user()->role) }}</h3>
-              <div class="social-links mt-2">
-                <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
-                <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
-                <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
-                <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
-              </div>
-            </div>
-          </div>
-          <div class="card">
-            <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
-
-              <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
+              <img src="{{ asset('storage/' . $studentProfile->avatar)}}" alt="Profile" class="rounded-circle">
               <h2>{{ Auth::user()->name }}</h2>
               <h3>{{ ucfirst(Auth::user()->role) }}</h3>
               <div class="social-links mt-2">
@@ -124,15 +111,21 @@
                 <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
 
                   <!-- Profile Edit Form -->
-                  <form method="POST"  action="{{route('student.profileupdate', ['profileUuid' =>$studentProfile->uuid])}}">
+                  <form method="POST" enctype="multipart/form-data"  action="{{route('student.profileupdate', ['profileUuid' =>$studentProfile->uuid])}}">
                     @csrf
                     @method('put')
                     <div class="row mb-3">
                       <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Profile Image</label>
                       <div class="col-md-8 col-lg-9">
-                        <img src="assets/img/profile-img.jpg" alt="Profile">
+                        <img src="{{ asset('storage/' . $studentProfile->avatar)}}" id="oldAvatar" alt="Profile">
+                        <img id="preview" src="#" alt="Preview" style="max-width: 200px; max-height: 200px; display: none;">
                         <div class="pt-2">
-                          <a href="#" class="btn btn-primary btn-sm" title="Upload new profile image"><i class="bi bi-upload"></i></a>
+                         <label for="fileUpload">
+                     <i class="btn btn-primary btn-sm bi bi-upload">
+                          </i>
+                         </label>
+                         <input type="file" id="fileUpload" name="avatar" accept="image/*" style="display:none;" onchange="getImagePreview(event)">
+                        
                           <a href="#" class="btn btn-danger btn-sm" title="Remove my profile image"><i class="bi bi-trash"></i></a>
                         </div>
                       </div>
@@ -289,25 +282,31 @@
   </main><!-- End #main -->
 
 @endsection
-{{-- <script>
-  $(document).ready(function() {
-      $('#changePasswordButton').click(function() {
-          var formData = $('#passwordUpdateForm').serialize();
-          
-          $.ajax({
-              url: $('#passwordUpdateForm').attr('action'),
-              type: 'PUT',
-              data: formData,
-              success: function(response) {
-                  // Handle success response
-                  if (response.status === 'password-updated') {
-                      // Show success message here
-                  }
-              },
-              error: function(error) {
-                  // Handle error response
-              }
-          });
-      });
-  });
-</script> --}}
+<script>
+//  document.querySelector("label[for='fileUpload']").addEventListener('click', function() {
+//     document.getElementById('fileUpload').click();
+
+//     console.log('wewewe');
+
+    
+// });
+// document.getElementById('fileUpload').addEventListener('change', function(e) {
+//     var imgPreview = document.getElementById('preview');
+//     imgPreview.src = URL.createObjectURL(e.target.files[0]);
+//     imgPreview.onload = function() {
+//         URL.revokeObjectURL(imgPreview.src) // Free memory
+//     }
+//     console.log(imgPreview.src);
+// });
+
+
+function getImagePreview(event){
+  var image =URL.createObjectURL(event.target.files[0]);
+   var oldAvatar = document.getElementById('oldAvatar'); 
+  var previewElement = document.getElementById('preview');  
+  oldAvatar.style.display = 'none'; 
+  previewElement.style.display = 'block'; 
+  previewElement.src = image;
+}
+
+</script>

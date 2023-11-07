@@ -245,14 +245,14 @@ table {
                                 <button type="button" class="btn btn-primary prev-step">Previous</button>
                             </div>
             
-                            <div class="col-lg-8 mx-auto align-items-center form-step " id="step3" style="display: none;">
+                            <div class="col-lg-12 mx-auto align-items-center form-step " id="step3" style="display: none;">
                                 <h3>Step 3: Select Year</h3>
                                 <div class="row justify-content-center">
                                     <!-- For College Enrollment -->
-                                    <div class="col-md-6" id="collegeYears" style="display: none;">
+                                    <div class="col-md-8" id="collegeYears" style="display: none;">
                                         <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="card mb-3 custom-card">
+                                            <div class="col-md-3">
+                                                <div class="card mb-2 custom-card">
                                                     <div class="card-body">
                                                         <h5 class="card-title">1st Year</h5>
                                                         <p class="card-text">Click here for 1st Year</p>
@@ -260,8 +260,8 @@ table {
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
-                                                <div class="card mb-3 custom-card">
+                                            <div class="col-md-3">
+                                                <div class="card mb-2 custom-card">
                                                     <div class="card-body">
                                                         <h5 class="card-title">2nd Year</h5>
                                                         <p class="card-text">Click here for 2nd Year</p>
@@ -269,8 +269,8 @@ table {
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
-                                                <div class="card mb-3 custom-card">
+                                            <div class="col-md-3">
+                                                <div class="card mb-2 custom-card">
                                                     <div class="card-body">
                                                         <h5 class="card-title">3rd Year</h5>
                                                         <p class="card-text">Click here for 3rd Year</p>
@@ -278,8 +278,8 @@ table {
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
-                                                <div class="card mb-3 custom-card">
+                                            <div class="col-md-3">
+                                                <div class="card mb-2 custom-card">
                                                     <div class="card-body">
                                                         <h5 class="card-title">4th Year</h5>
                                                         <p class="card-text">Click here for 4th Year</p>

@@ -32,19 +32,24 @@ Route::group(['middleware' => 'checkRole:admin'], function () {
 
 Route::group(['middleware' => 'checkRole:student'], function () {
     // Define routes accessible to students
-    Route::get('/student/profile/{profileUuid}', [StudentController::class, 'showStudentProfile'])->name('student.profile');
-    Route::get('/student/home', [StudentController::class, 'showStudentHome']);
-    Route::get('/student/enrollment', [StudentController::class, 'showStudentEnrollment'])->name('student.enrollment');
-    Route::get('/student/enrollmentlist', [EnrollmentController::class, 'populateEnrollmentTable'])->name('student.enrollmentlist');
-    Route::get('/student/createprofile', [StudentController::class, 'showStudentProfileCreate'])->name('student.createprofile');
+    route::get('/student/unathorized',[StudentController::class,'studentUnauthorized'])->middleware('auth')->name('student.Unauthorized');
     Route::post('/storeStudentProfile', [StudentController::class, 'storeStudentProfile'])->name('storeStudentProfile');
-    Route::put('/student/update/{profileUuid}', [StudentController::class, 'updateStudentProfile'])->name('student.profileupdate');
-    Route::get('/student/courses', [CourseController::class, 'create'])->name('student.courses');
-    Route::post('/', [CourseController::class, 'storeCourse'])->name('storeCourses');
-    Route::get('/get-subjects', [CourseController::class, 'getSubjects'])->name('get.subjects');
-    Route::post('/enrollments', [EnrollmentController::class, 'store'])->name('student.enroll');
-    Route::get('/getClassesId', [EnrollmentController::class, 'populateClassesTable'])->name('getClassesId');
-    Route::get('/search', [EnrollmentController::class, 'StudentSearch'])->name('search');
+    Route::get('/student/createprofile', [StudentController::class, 'showStudentProfileCreate'])->name('student.createprofile');
+    Route::middleware('checkProfileStatus')->group(function () {
+        route::get('/home',[HomeController::class,'index'])->middleware('auth')->name('home');
+        Route::get('/student/profile/{profileUuid}', [StudentController::class, 'showStudentProfile'])->name('student.profile');
+        Route::get('/student/home', [StudentController::class, 'showStudentHome']);
+        Route::get('/student/enrollment', [StudentController::class, 'showStudentEnrollment'])->name('student.enrollment');
+        Route::get('/student/enrollmentlist', [EnrollmentController::class, 'populateEnrollmentTable'])->name('student.enrollmentlist');
+        Route::put('/student/update/{profileUuid}', [StudentController::class, 'updateStudentProfile'])->name('student.profileupdate');
+      
+        Route::get('/student/courses', [CourseController::class, 'create'])->name('student.courses');
+        Route::post('/', [CourseController::class, 'storeCourse'])->name('storeCourses');
+        Route::get('/get-subjects', [CourseController::class, 'getSubjects'])->name('get.subjects');
+        Route::post('/enrollments', [EnrollmentController::class, 'store'])->name('student.enroll');
+        Route::get('/getClassesId', [EnrollmentController::class, 'populateClassesTable'])->name('getClassesId');
+        Route::get('/search', [EnrollmentController::class, 'StudentSearch'])->name('search');
+    });
 });
 
 Route::group(['middleware' => 'checkRole:registrar'], function () {
@@ -58,7 +63,7 @@ Route::group(['middleware' => 'checkRole:teacher'], function () {
     // Define routes accessible to teacher
 });
 
-route::get('/home',[HomeController::class,'index'])->middleware('auth')->name('home');
+
 
 
 

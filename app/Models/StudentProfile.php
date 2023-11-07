@@ -21,7 +21,13 @@ class StudentProfile extends Model
         'mother_fullname',
         'parent_contact_number',
         'users_contact_number',
-        'gender'
+        'gender',
+        'avatar',
+        'psaBirth_doc',
+        'goodMoral_doc',    
+        'tor_doc',
+        'form137_doc',
+        'status'
     ];
     
 
