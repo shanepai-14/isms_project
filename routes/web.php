@@ -28,6 +28,7 @@ Route::get('/', function () {
 Route::group(['middleware' => 'checkRole:admin'], function () {
     // Define routes accessible to admin
     route::get('post',[HomeController::class,'post']);
+
 });
 
 Route::group(['middleware' => 'checkRole:student'], function () {
@@ -35,14 +36,14 @@ Route::group(['middleware' => 'checkRole:student'], function () {
     route::get('/student/unathorized',[StudentController::class,'studentUnauthorized'])->middleware('auth')->name('student.Unauthorized');
     Route::post('/storeStudentProfile', [StudentController::class, 'storeStudentProfile'])->name('storeStudentProfile');
     Route::get('/student/createprofile', [StudentController::class, 'showStudentProfileCreate'])->name('student.createprofile');
+    route::get('/home',[HomeController::class,'index'])->middleware('auth')->name('home');
     Route::middleware('checkProfileStatus')->group(function () {
-        route::get('/home',[HomeController::class,'index'])->middleware('auth')->name('home');
+        
         Route::get('/student/profile/{profileUuid}', [StudentController::class, 'showStudentProfile'])->name('student.profile');
-        Route::get('/student/home', [StudentController::class, 'showStudentHome']);
+        Route::get('/student/home', [StudentController::class, 'showStudentHome'])->name('showStudentHome');;
         Route::get('/student/enrollment', [StudentController::class, 'showStudentEnrollment'])->name('student.enrollment');
         Route::get('/student/enrollmentlist', [EnrollmentController::class, 'populateEnrollmentTable'])->name('student.enrollmentlist');
         Route::put('/student/update/{profileUuid}', [StudentController::class, 'updateStudentProfile'])->name('student.profileupdate');
-      
         Route::get('/student/courses', [CourseController::class, 'create'])->name('student.courses');
         Route::post('/', [CourseController::class, 'storeCourse'])->name('storeCourses');
         Route::get('/get-subjects', [CourseController::class, 'getSubjects'])->name('get.subjects');

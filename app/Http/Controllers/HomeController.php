@@ -16,7 +16,8 @@ class HomeController extends Controller
          $studentprofile=Auth()->user()->profile_id;
          if($role == 'student'){
             if($studentprofile !== null){
-               return view('student.studenthome');
+               // return view('student.studenthome');
+               return redirect()->route('showStudentHome')->with('message', 'Successfully Created an Account');
             }else{
                return redirect()->route('student.createprofile')->with('message', 'You dont have a profile. You can create it here.');
             }

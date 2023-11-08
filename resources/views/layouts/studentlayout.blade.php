@@ -309,12 +309,12 @@ $profile = $user->profiles;
         <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
             <a href="{{route('student.enrollment')}}">
-              <i class="bi bi-circle"></i><span>Enroll</span>
+              <i class="bi bi-circle"></i><span>Enrollment Form</span>
             </a>
           </li>
           <li>
             <a href="{{route('student.enrollmentlist')}}">
-              <i class="bi bi-circle"></i><span>Enrollment List</span>
+              <i class="bi bi-circle"></i><span>Enrollment History</span>
             </a>
           </li>
     
