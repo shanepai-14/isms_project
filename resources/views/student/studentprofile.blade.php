@@ -154,9 +154,12 @@
                       <label for="validationTooltip04" class="col-md-4 col-lg-3 col-form-label">Gender</label>
                      <div class="col-md-8 col-lg-9"> 
                       <select class="form-select " name="gender" id="validationTooltip04" required>
-                      <option selected disabled value=""> {{ $studentProfile->gender}}</option>
+                        <option selected value="{{$studentProfile->gender}}"> {{ $studentProfile->gender}}</option>
+                      @if($studentProfile->gender == 'Male')
                       <option>Female</option>
+                      @else
                       <option>Male</option>
+                      @endif
                     </select>
                   </div>
                       <div class="invalid-tooltip">

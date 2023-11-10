@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\EnrollmentController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -25,10 +26,25 @@ Route::get('/', function () {
 //     return view('dashboard');
 // })->middleware(['auth', 'verified'])->name('dashboard');
 
+
+route::get('/home',[HomeController::class,'index'])->middleware('auth')->name('home');
 Route::group(['middleware' => 'checkRole:admin'], function () {
     // Define routes accessible to admin
     route::get('post',[HomeController::class,'post']);
+    route::get('/admin/home',[AdminController::class,'index'])->middleware('auth')->name('adminhome');
+    Route::post('/storeAdminProfile', [AdminController::class, 'storeAdminProfile'])->name('storeAdminProfile');
+    Route::get('/admin/createprofile', [AdminController::class, 'showAdminProfileCreate'])->name('admin.createprofile');
+    Route::get('/admin/profile/{profileUuid}', [AdminController::class, 'showAdminProfile'])->name('admin.profile');
+    Route::put('/admin/update/{profileUuid}', [AdminController::class, 'updateAdminProfile'])->name('admin.profileupdate');
+    Route::get('/admin/enrollment', [AdminController::class, 'showAdminEnrollment'])->name('student.enrollment');
+    Route::get('/admin/enrollmentlist', [EnrollmentController::class, 'AdminPopulateEnrollmentTable'])->name('admin.enrollmentlist');
+    Route::get('/getClassesIdAdmin', [EnrollmentController::class, 'AdminPopulateClassesTable'])->name('getClassesIdAdmin');
+    Route::get('/AdminSearch', [EnrollmentController::class, 'AllStudentSearch'])->name('AdminSearch');
+    Route::get('/AdminStudentAccountSearch', [AdminController::class, 'AllStudentAccountSearch'])->name('AdminStudentAccountSearch');
+    Route::get('/admin/student-acounts', [AdminController::class, 'showAdminStudentAccountList'])->name('AdminStudentAccounts');
+    Route::post('/update-student-account-status', [AdminController::class, 'updateStudentAccountStatus'])->name('update-student-account-status');
 
+   
 });
 
 Route::group(['middleware' => 'checkRole:student'], function () {
@@ -36,7 +52,7 @@ Route::group(['middleware' => 'checkRole:student'], function () {
     route::get('/student/unathorized',[StudentController::class,'studentUnauthorized'])->middleware('auth')->name('student.Unauthorized');
     Route::post('/storeStudentProfile', [StudentController::class, 'storeStudentProfile'])->name('storeStudentProfile');
     Route::get('/student/createprofile', [StudentController::class, 'showStudentProfileCreate'])->name('student.createprofile');
-    route::get('/home',[HomeController::class,'index'])->middleware('auth')->name('home');
+ 
     Route::middleware('checkProfileStatus')->group(function () {
         
         Route::get('/student/profile/{profileUuid}', [StudentController::class, 'showStudentProfile'])->name('student.profile');

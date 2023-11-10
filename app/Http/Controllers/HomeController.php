@@ -23,7 +23,15 @@ class HomeController extends Controller
             }
             
          }else  if($role == 'admin'){
-            return view('admin.adminhome');
+            if($studentprofile !== null){
+               // return view('student.studenthome');
+               return redirect()->route('adminhome')->with('message', 'Successfully Created an Account');
+            }else{
+               return redirect()->route('admin.createprofile')->with('message', 'Successfully Created an Account');
+            }
+
+
+        
          }else  if($role == 'cashier'){
             return view('dashboard');
          }else  if($role == 'registrar'){

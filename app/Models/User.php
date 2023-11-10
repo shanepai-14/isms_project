@@ -31,6 +31,10 @@ class User extends Authenticatable
     {
         return $this->belongsTo(StudentProfile::class, 'profile_id');
     }
+    public function Employeeprofiles()
+    {
+        return $this->belongsTo(EmployeeProfile::class, 'profile_id');
+    }
     public function enrollments()
     {
         return $this->hasMany(Enrollment::class);
