@@ -27,7 +27,8 @@ class StudentProfile extends Model
         'goodMoral_doc',    
         'tor_doc',
         'form137_doc',
-        'status'
+        'status',
+        'student_id_number'
     ];
     
 

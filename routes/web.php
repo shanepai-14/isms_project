@@ -39,6 +39,7 @@ Route::group(['middleware' => 'checkRole:admin'], function () {
     Route::get('/admin/enrollment', [AdminController::class, 'showAdminEnrollment'])->name('student.enrollment');
     Route::get('/admin/enrollmentlist', [EnrollmentController::class, 'AdminPopulateEnrollmentTable'])->name('admin.enrollmentlist');
     Route::get('/getClassesIdAdmin', [EnrollmentController::class, 'AdminPopulateClassesTable'])->name('getClassesIdAdmin');
+    Route::get('/getStudentAccount', [EnrollmentController::class, 'populateStudentAccount'])->name('getStudentAccount');
     Route::get('/AdminSearch', [EnrollmentController::class, 'AllStudentSearch'])->name('AdminSearch');
     Route::get('/AdminStudentAccountSearch', [AdminController::class, 'AllStudentAccountSearch'])->name('AdminStudentAccountSearch');
     Route::get('/admin/student-acounts', [AdminController::class, 'showAdminStudentAccountList'])->name('AdminStudentAccounts');

@@ -51,9 +51,23 @@ class StudentController extends Controller
         }
        
     }
+    public function generateUniqueRandomNumber()
+    {
+        do {
+            $randomNumber = str_pad(mt_rand(10000, 9999999), 7, '0', STR_PAD_LEFT); // Convert random number to a string
+        } while ($randomNumber <= "10000"); // Compare as strings to handle leading zeros
+    
+        // Check if the generated number already exists
+        while (StudentProfile::where('student_id_number', $randomNumber)->exists()) {
+            $randomNumber = str_pad(mt_rand(1000, 9999999), 7, '0', STR_PAD_LEFT); // Generate a new random number if it already exists
+        }
+    
+        return $randomNumber;
+    }
 
     public function storeStudentProfile(Request $request)
     {
+        $student_id_number = $this->generateUniqueRandomNumber();
         // Validate the form input (you can add more validation rules)
   try{
     
@@ -78,6 +92,7 @@ class StudentController extends Controller
     }
     // Create a new student profile
     $studentProfile = StudentProfile::create([
+        'student_id_number' =>  $student_id_number,
         'uuid' => Str::uuid(),
         'first_name' => $request->input('first_name'),
         'middle_name' => $request->input('middle_name'),
