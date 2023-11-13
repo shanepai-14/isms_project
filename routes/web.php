@@ -44,6 +44,7 @@ Route::group(['middleware' => 'checkRole:admin'], function () {
     Route::get('/AdminStudentAccountSearch', [AdminController::class, 'AllStudentAccountSearch'])->name('AdminStudentAccountSearch');
     Route::get('/admin/student-acounts', [AdminController::class, 'showAdminStudentAccountList'])->name('AdminStudentAccounts');
     Route::post('/update-student-account-status', [AdminController::class, 'updateStudentAccountStatus'])->name('update-student-account-status');
+    Route::get('/admin/student-management', [AdminController::class, 'showAdminStudentManagement'])->name('admin.studentmanagement');
 
    
 });
@@ -55,7 +56,6 @@ Route::group(['middleware' => 'checkRole:student'], function () {
     Route::get('/student/createprofile', [StudentController::class, 'showStudentProfileCreate'])->name('student.createprofile');
  
     Route::middleware('checkProfileStatus')->group(function () {
-        
         Route::get('/student/profile/{profileUuid}', [StudentController::class, 'showStudentProfile'])->name('student.profile');
         Route::get('/student/home', [StudentController::class, 'showStudentHome'])->name('showStudentHome');;
         Route::get('/student/enrollment', [StudentController::class, 'showStudentEnrollment'])->name('student.enrollment');
@@ -67,6 +67,7 @@ Route::group(['middleware' => 'checkRole:student'], function () {
         Route::post('/enrollments', [EnrollmentController::class, 'store'])->name('student.enroll');
         Route::get('/getClassesId', [EnrollmentController::class, 'populateClassesTable'])->name('getClassesId');
         Route::get('/search', [EnrollmentController::class, 'StudentSearch'])->name('search');
+       
     });
 });
 
