@@ -182,7 +182,7 @@ table {
                                                     <div class="card-body ">
                                                         <h5 class="card-title pb-0 mb-0">AB-THEOLOGY</h5>
                                                         <p class="card-text">BACHELOR  OF <br>ARTS IN<br> THEOLOGY</p>
-                                                        <a href="#" class="btn btn-primary next-step" data-course="THEO">Select</a>
+                                                        <a href="#" class="btn btn-primary next-step" data-course="AB-THEOLOGY">Select</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -673,9 +673,14 @@ $(document).on('click', 'input[name="subject"]', function() {
             showLoadingScreen();
              year = $(this).data('year');
              semester = '<?php echo $activeSemester; ?>';
+             var secondsem = "2nd Semester";
             $('#reviewYear').text(year);
             $('#reviewYear2').text(year);
             console.log(year);
+            console.log($('#reviewEnrollmentType').text()+" entype");
+            console.log($('#reviewCourse').text()+" course");
+            console.log(year +" year");
+            console.log(semester +" sem");
            
             $.ajax({
                 url: '{{ route('get.subjects') }}', // Adjust the URL as per your routes

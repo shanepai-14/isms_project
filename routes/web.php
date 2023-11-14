@@ -44,7 +44,7 @@ Route::group(['middleware' => 'checkRole:admin'], function () {
     Route::get('/AdminStudentAccountSearch', [AdminController::class, 'AllStudentAccountSearch'])->name('AdminStudentAccountSearch');
     Route::get('/admin/student-acounts', [AdminController::class, 'showAdminStudentAccountList'])->name('AdminStudentAccounts');
     Route::post('/update-student-account-status', [AdminController::class, 'updateStudentAccountStatus'])->name('update-student-account-status');
-    Route::get('/admin/student-management', [AdminController::class, 'showAdminStudentManagement'])->name('admin.studentmanagement');
+    Route::get('/admin/student-management/{job_order}', [AdminController::class, 'showAdminStudentManagement'])->name('admin.studentmanagement');
 
    
 });
