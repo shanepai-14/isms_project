@@ -141,7 +141,7 @@ table {
                                             <div class="col-sm-4">
                                                 <div class="card mb-3 custom-card">
                                                     <div class="card-body">
-                                                        <h5 class="card-title pb-0 mb-0">BSED</h5>
+                                                        <h5 class="card-title pb-0 mb-0">BSED-MATH</h5>
                                                         <p class="card-text ">BACHELOR OF SECONDARY <br>EDUCATION MAJOR IN MATH</p>
                                                         <a href="#" class="btn btn-primary next-step" data-course="BSED-MATH">Select</a>
                                                     </div>
@@ -150,7 +150,7 @@ table {
                                             <div class="col-sm-4">
                                                 <div class="card mb-3 custom-card">
                                                     <div class="card-body">
-                                                        <h5 class="card-title pb-0 mb-0">BSED</h5>
+                                                        <h5 class="card-title pb-0 mb-0">BSED-ENGLISH</h5>
                                                         <p class="card-text ">BACHELOR OF SECONDARY <br>EDUCATION MAJOR IN ENGLISH</p>
                                                         <a href="#" class="btn btn-primary next-step" data-course="BSED-ENGLISH">Select</a>
                                                     </div>
@@ -286,6 +286,12 @@ table {
                                                         <a href="#" class="btn btn-primary select-year" data-year="4th Year">Select</a>
                                                     </div>
                                                 </div>
+                                            </div>
+                                            <div>
+                                                <select name="cars" id="SemesterSelect">
+                                                    <option value="1st Semester">1st Semester</option>
+                                                    <option value="2nd Semester">2nd Semester</option>
+                                                  </select>
                                             </div>
                                         </div>
                                     </div>
@@ -633,7 +639,7 @@ $(document).on('click', 'input[name="subject"]', function() {
             e.preventDefault();
            var data ;
            showLoadingScreen();
-           studentType = 'regular';
+
             $.ajax({
         url: '{{ route('student.enroll') }}', // Replace with your actual endpoint
         type: 'POST',
@@ -669,9 +675,13 @@ $(document).on('click', 'input[name="subject"]', function() {
 
         });
 
-        $('.select-year').click(function() {
+        $('.select-year').click(function(){
             showLoadingScreen();
+            
+            var selectElement = document.getElementById('SemesterSelect');
+           var selectedValue = selectElement.options[selectElement.selectedIndex].value;
              year = $(this).data('year');
+
              semester = '<?php echo $activeSemester; ?>';
              var secondsem = "2nd Semester";
             $('#reviewYear').text(year);
@@ -680,7 +690,7 @@ $(document).on('click', 'input[name="subject"]', function() {
             console.log($('#reviewEnrollmentType').text()+" entype");
             console.log($('#reviewCourse').text()+" course");
             console.log(year +" year");
-            console.log(semester +" sem");
+            console.log(selectedValue +" select sem");
            
             $.ajax({
                 url: '{{ route('get.subjects') }}', // Adjust the URL as per your routes
@@ -689,23 +699,13 @@ $(document).on('click', 'input[name="subject"]', function() {
                     enrollmentType: $('#reviewEnrollmentType').text(),
                     courseCode: $('#reviewCourse').text(),
                     yearLevel: year,
-                    activeSemester: semester,
+                    activeSemester: selectedValue,
                 },
                   headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     },
-                success: function(response) {
-               
-                
-              
-                    subjects = response.data; // Assuming 'data' is an array of subjects
-                  
-    // Loop through the subjects and create checkboxes
-    
-
-
-
-
+                success: function(response) { 
+                    subjects = response.data; 
     subjects.forEach(function(subject, index) {
         checkbox = $('<tr data-id='+ subject.id+'>' +
                             '<td class="pt-3 pb-3"><label class="checkbox-wrap checkbox-primary mb-0 mt-2">'+
