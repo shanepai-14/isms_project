@@ -46,6 +46,17 @@ Route::group(['middleware' => 'checkRole:admin'], function () {
     Route::post('/update-student-account-status', [AdminController::class, 'updateStudentAccountStatus'])->name('update-student-account-status');
     Route::get('/admin/student-management/{job_order}', [AdminController::class, 'showAdminStudentManagement'])->name('admin.studentmanagement');
     Route::post('/storePayment', [AdminController::class, 'StorePayment'])->name('storePayment');
+    Route::get('/get-subjects-management', [CourseController::class, 'getSubjects'])->name('get.subjects-management');
+    
+    Route::post('/AddingStudentSubjects', [EnrollmentController::class, 'AddingStudentSubjects'])->name('AddingStudentSubjects');
+    Route::post('/updateStudentSubjectStatusRow', [EnrollmentController::class, 'updateStudentSubjectStatusRow'])->name('updateStudentSubjectStatusRow');
+
+    Route::post('/updateStudentSubjectGradeRow', [EnrollmentController::class, 'updateStudentSubjectGradeRow'])->name('updateStudentSubjectGradeRow');
+
+    Route::post('/updateStudentPayment', [EnrollmentController::class, 'updateStudentPayment'])->name('updateStudentPayment');
+    Route::post('/updateScholarShip', [EnrollmentController::class, 'updateScholarShip'])->name('updateScholarShip');
+
+    Route::get('/admin/student-management/{job_order}/{enrollment_status}', [AdminController::class, 'updateEnrollmentStatus'])->name('admin.studentmanagementenrollmentstatus');
 
    
 });
