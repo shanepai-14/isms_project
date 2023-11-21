@@ -7,6 +7,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\MiscellaneousController;
+use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\ScheduleController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -52,13 +56,29 @@ Route::group(['middleware' => 'checkRole:admin'], function () {
     Route::post('/updateStudentSubjectStatusRow', [EnrollmentController::class, 'updateStudentSubjectStatusRow'])->name('updateStudentSubjectStatusRow');
 
     Route::post('/updateStudentSubjectGradeRow', [EnrollmentController::class, 'updateStudentSubjectGradeRow'])->name('updateStudentSubjectGradeRow');
+    Route::post('/createcollegecourse', [CourseController::class, 'storeCourseCollegeAdmin'])->name('store.collegecourse');
+    Route::get('admin/college-course/create', [AdminController::class, 'showCollegeCreateCourse'])->name('admin.collegecourses');
+
+    Route::post('/createseniorhighcourse', [CourseController::class, 'storeCourseSeniorHighAdmin'])->name('store.seniorhighcourses');
+    Route::get('admin/senior-high-course/create', [AdminController::class, 'showCollegeSeniorCourse'])->name('admin.seniorhighcourses');
+
+   
 
     Route::post('/updateStudentPayment', [EnrollmentController::class, 'updateStudentPayment'])->name('updateStudentPayment');
     Route::post('/updateScholarShip', [EnrollmentController::class, 'updateScholarShip'])->name('updateScholarShip');
 
     Route::get('/admin/student-management/{job_order}/{enrollment_status}', [AdminController::class, 'updateEnrollmentStatus'])->name('admin.studentmanagementenrollmentstatus');
 
-   
+    Route::get('/admin/miscellaneous', [AdminController::class, 'showMiscellaneousFee'])->name('adminMiscellaneous');
+    Route::post('/admin/store-misc', [MiscellaneousController::class, 'CreateMisc'])->name('storeMisc');
+    
+    Route::post('registerEmployee', [AdminController::class, 'storeEmployee'])->name('storeEmployee');
+    Route::get('/admin/addEmployee', [AdminController::class, 'showEmployeeCreate'])->name('showEmployeeCreate');
+    
+    Route::get('/admin/ClassSchedule/{enrollment_type}/{course}/{school_year}', [ScheduleController::class, 'ShowSchedule'])->name('ShowSchedule');
+
+    
+    Route::post('/updateSchedule', [ScheduleController::class, 'updateSchedule'])->name('updateSchedule');
 });
 
 Route::group(['middleware' => 'checkRole:student'], function () {

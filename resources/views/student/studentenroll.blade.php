@@ -125,6 +125,10 @@ table {
                                             </div>
                                         </div>
                                     </div>
+                                    <select name="cars" id="SemesterSelect">
+                                        <option value="1st Semester">1st Semester</option>
+                                        <option value="2nd Semester">2nd Semester</option>
+                                      </select>
                                 </div>
                             </div>
 
@@ -197,7 +201,7 @@ table {
                                                     <div class="card-body">
                                                         <h5 class="card-title">HUMSS</h5>
                                                         <p class="card-text">Click here for HUMSS</p>
-                                                        <a href="#" class="btn btn-primary next-step" data-course="HUMSS">HUMSS</a>
+                                                        <a href="#" class="btn btn-primary next-step" data-course="HUMMS">HUMSS</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -288,10 +292,7 @@ table {
                                                 </div>
                                             </div>
                                             <div>
-                                                <select name="cars" id="SemesterSelect">
-                                                    <option value="1st Semester">1st Semester</option>
-                                                    <option value="2nd Semester">2nd Semester</option>
-                                                  </select>
+                                               
                                             </div>
                                         </div>
                                     </div>
@@ -691,7 +692,13 @@ $(document).on('click', 'input[name="subject"]', function() {
             console.log($('#reviewCourse').text()+" course");
             console.log(year +" year");
             console.log(selectedValue +" select sem");
-           
+            var  checked;
+            if($('#reviewEnrollmentType').text() == 'Senior High'){
+                checked = 'checked';
+            }else{
+                checked = '';
+            }
+              
             $.ajax({
                 url: '{{ route('get.subjects') }}', // Adjust the URL as per your routes
                 type: 'GET',
@@ -709,7 +716,7 @@ $(document).on('click', 'input[name="subject"]', function() {
     subjects.forEach(function(subject, index) {
         checkbox = $('<tr data-id='+ subject.id+'>' +
                             '<td class="pt-3 pb-3"><label class="checkbox-wrap checkbox-primary mb-0 mt-2">'+
-										  '<input type="checkbox" class="form-check-input" id="subject' + index + '" name="subject" value="' + subject.course_code + '">'+
+										  '<input type="checkbox" class="form-check-input" id="subject' + index + '" name="subject" value="' + subject.course_code + '"'+checked+'>'+
 										  '<span class="checkmark"></span>'+
 										'</label>'+
                                         '</td>' +
