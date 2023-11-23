@@ -1,5 +1,5 @@
 @extends('layouts.studentlayout')
-
+@section('title', 'Student - Home')
 @section('content')
 <main id="main" class="main">
     

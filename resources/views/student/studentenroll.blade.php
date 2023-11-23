@@ -1,4 +1,5 @@
 @extends('layouts.studentlayout')
+@section('title', 'Enrollment')
 <head>
     <link href="{{ asset('assets/table/css/style.css') }}" rel="stylesheet">
   </head>

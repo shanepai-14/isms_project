@@ -61,7 +61,7 @@ Route::group(['middleware' => 'checkRole:admin'], function () {
 
     Route::post('/createseniorhighcourse', [CourseController::class, 'storeCourseSeniorHighAdmin'])->name('store.seniorhighcourses');
     Route::get('admin/senior-high-course/create', [AdminController::class, 'showCollegeSeniorCourse'])->name('admin.seniorhighcourses');
-
+ 
    
 
     Route::post('/updateStudentPayment', [EnrollmentController::class, 'updateStudentPayment'])->name('updateStudentPayment');
@@ -99,6 +99,7 @@ Route::group(['middleware' => 'checkRole:student'], function () {
         Route::post('/enrollments', [EnrollmentController::class, 'store'])->name('student.enroll');
         Route::get('/getClassesId', [EnrollmentController::class, 'populateClassesTable'])->name('getClassesId');
         Route::get('/search', [EnrollmentController::class, 'StudentSearch'])->name('search');
+        Route::get('/student/student-management/{job_order}', [AdminController::class, 'showAdminStudentManagement'])->name('student.studentmanagement');
        
     });
 });
@@ -110,8 +111,8 @@ Route::group(['middleware' => 'checkRole:registrar'], function () {
 Route::group(['middleware' => 'checkRole:assessor'], function () {
     // Define routes accessible to assessor
 });
-Route::group(['middleware' => 'checkRole:teacher'], function () {
-    // Define routes accessible to teacher
+Route::group(['middleware' => 'checkRole:teachercollege'], function () {
+    Route::get('/teacher/createprofile', [AdminController::class, 'showAdminProfileCreate'])->name('teacher.createprofile');
 });
 
 

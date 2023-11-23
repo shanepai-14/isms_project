@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Dashboard - Student Dashboard</title>
+  <title>Student - Create Profile</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -175,11 +175,7 @@
     <nav class="header-nav ms-auto">
       <ul class="d-flex align-items-center">
   
-        <li class="nav-item d-block d-lg-none">
-          <a class="nav-link nav-icon search-bar-toggle " href="#">
-            <i class="bi bi-search"></i>
-          </a>
-        </li><!-- End Search Icon-->
+       <!-- End Search Icon-->
   
 
 
@@ -376,10 +372,12 @@
       &copy; Copyright <strong><span>Dvc Student</span></strong>. All Rights Reserved
     </div>
     <div class="credits">
+      
       <!-- All the links in the footer should remain intact. -->
       <!-- You can delete the links only if you purchased the pro version. -->
       <!-- Licensing information: https://bootstrapmade.com/license/ -->
       <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-assets/template/ -->
+
       Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
     </div>
   </footer><!-- End Footer -->

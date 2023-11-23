@@ -1,4 +1,5 @@
 @extends('layouts.studentlayout')
+@section('title', 'Student Profile')
 @section('content')
 <main id="main" class="main">
 

@@ -38,8 +38,14 @@ class HomeController extends Controller
             return view('dashboard');
          }else  if($role == 'assessor'){
             return view('dashboard');
-         }else  if($role == 'teacher'){
-            return view('dashboard');
+         }else  if($role == 'teachercollege'){
+            if($studentprofile !== null){
+               // return view('student.studenthome');
+               return redirect()->route('adminhome')->with('message', 'Successfully Created an Account');
+            }else{
+               return redirect()->route('teacher.createprofile')->with('message', 'Successfully Created an Account');
+            }
+
          }
 
     }

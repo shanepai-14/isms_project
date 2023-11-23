@@ -15,7 +15,7 @@ class CheckRole
      */
     public function handle($request, Closure $next, $role)
     {
-        $allowedRoles = ['student', 'admin', 'cashier', 'registrar', 'teacher','assessor'];
+        $allowedRoles = ['student', 'admin', 'cashier', 'registrar', 'teachercollege','teacherseniorhigh'];
 
         if (!in_array($role, $allowedRoles)) {
             abort(403, 'Invalid role specified');

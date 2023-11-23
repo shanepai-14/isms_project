@@ -72,7 +72,7 @@ class StudentController extends Controller
   try{
     
     $request->validate([
-        'avatar' => 'required|file|image|mimes:jpeg,png,jpg|max:2048',
+        'avatar' => 'required|file|image|mimes:jpeg,png,jpg|max:6048',
         'first_name' => 'required|string|max:20',
         'middle_name' => 'required|string|max:20',
         'last_name' => 'required|string|max:20',
@@ -129,7 +129,7 @@ class StudentController extends Controller
      return redirect('/student/home')->with('message', 'Student profile created successfully!');
 
   }catch(\Exception $e){
-    return redirect()->back()->with('error', 'An error occurred while uploading the document.');
+    return redirect()->back()->with('error', $e->getMessage());
   }
     }
 
