@@ -52,7 +52,7 @@ http://www.templatemo.com/tm-509-hydro
                          <li><a href="#home" class="smoothScroll">Home</a></li>
                          <li><a href="#about" class="smoothScroll">About</a></li>
                          <li><a href="#blog" class="smoothScroll">Blog</a></li>
-                         <li><a href="#work" class="smoothScroll">Our Work</a></li>
+                         <li><a href="#work" class="smoothScroll">Our School</a></li>
                          <li><a href="#contact" class="smoothScroll">Contacts</a></li>
                     </ul>
 
@@ -112,7 +112,7 @@ http://www.templatemo.com/tm-509-hydro
 
                               {{-- <div class="embed-responsive embed-responsive-16by9">
                                    <iframe width="560" height="315" src="https://www.youtube.com/embed/Ljo0s9JC_fc?si=a13IJbBBnjBZtXD_" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe> --}}
-                                   <iframe width="560" height="315" src="https://www.youtube.com/embed/9u0k8ao8cVE?si=GaFfoW_YVNWrfTzU&amp;start=1?autoplay=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                                   <iframe width="560" height="310" src="https://www.youtube.com/embed/9u0k8ao8cVE?si=GaFfoW_YVNWrfTzU&amp;start=1?autoplay=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                                    {{-- <iframe src="https://www.facebook.com/plugins/video.php?height=314&href=https%3A%2F%2Fwww.facebook.com%2FDVCians%2Fvideos%2F6396058087082573%2F&show_text=false&width=560&t=0" width="560" height="314" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowFullScreen="true"></iframe>
 
                                    <iframe width="560" height="315" src="https://www.youtube.com/embed/dQw4w9WgXcQ?si=TvURSCTZeojpuwo0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe> --}}
@@ -136,33 +136,34 @@ http://www.templatemo.com/tm-509-hydro
                                    <h2>Let us introduce</h2>
                                    <span class="line-bar">...</span>
                               </div>
-                              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim.</p>
-                              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor.</p>
+                           
+                              <p> Davao Vision Colleges DVC is an educational institution founded on 2009 providing quaity and affordable education in the province of Catalunan Grande, Davao City.</p>
+                         
                          </div>
                     </div>
 
                     <div class="col-md-3 col-sm-6">
                          <div class="about-info skill-thumb">
 
-                              <strong>Web Design</strong>
+                              <strong>Facility</strong>
                                    <span class="pull-right">85%</span>
                                         <div class="progress">
                                              <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" style="width: 85%;"></div>
                                         </div>
 
-                              <strong>Photography</strong>
+                              <strong>Management</strong>
                                    <span class="pull-right">90%</span>
                                         <div class="progress">
                                              <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width: 90%;"></div>
                                         </div>
 
-                              <strong>Content Marketing</strong>
-                                   <span class="pull-right">75%</span>
+                              <strong>Education</strong>
+                                   <span class="pull-right">85%</span>
                                         <div class="progress">
                                              <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%;"></div>
                                         </div>
 
-                              <strong>CMS Admin</strong>
+                              <strong>Staff</strong>
                                    <span class="pull-right">70%</span>
                                         <div class="progress">
                                              <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width: 70%;"></div>
@@ -173,7 +174,7 @@ http://www.templatemo.com/tm-509-hydro
 
                     <div class="col-md-4 col-sm-12">
                          <div class="about-image">
-                              <img src="{{ asset("assets/landing/images/prince-image.png")}}" class="img-fluid" alt="" >
+                              <img src="{{ asset("assets/images/dvc-logo.png")}}" width="270x"  alt="" >
                          </div>
                     </div>
                     
@@ -202,7 +203,7 @@ http://www.templatemo.com/tm-509-hydro
                               </div>
                               <div class="media-body blog-info">
                                    <small><i class="fa fa-clock-o"></i> December 22, 2017</small>
-                                   <h3><a href="blog-detail.html">How To Find Out Beautiful Workspace.</a></h3>
+                                   <h3><a href="blog-detail.html">High School Admmision</a></h3>
                                    <p>Lorem ipsum dolor sit consectetur adipiscing morbi venenatis.</p>
                                    <a href="blog-detail.html" class="btn section-btn">Read article</a>
                               </div>
@@ -217,7 +218,7 @@ http://www.templatemo.com/tm-509-hydro
                               </div>
                               <div class="media-body blog-info">
                                    <small><i class="fa fa-clock-o"></i> December 18, 2017</small>
-                                   <h3><a href="blog-detail.html">woman sportwear.</a></h3>
+                                   <h3><a href="blog-detail.html">High School Admmision</a></h3>
                                    <p>Lorem ipsum dolor sit consectetur adipiscing morbi venenatis.</p>
                                    <a href="blog-detail.html" class="btn section-btn">Read more</a>
                               </div>
@@ -232,7 +233,7 @@ http://www.templatemo.com/tm-509-hydro
                               </div>
                               <div class="media-body blog-info">
                                    <small><i class="fa fa-clock-o"></i> December 14, 2017</small>
-                                   <h3><a href="blog-detail.html">new creative fashion.</a></h3>
+                                   <h3><a href="blog-detail.html">College Admission.</a></h3>
                                    <p>Lorem ipsum dolor sit consectetur adipiscing morbi venenatis.</p>
                                    <a href="blog-detail.html" class="btn section-btn">Read article</a>
                               </div>
@@ -247,7 +248,7 @@ http://www.templatemo.com/tm-509-hydro
                               </div>
                               <div class="media-body blog-info">
                                    <small><i class="fa fa-clock-o"></i> December 10, 2017</small>
-                                   <h3><a href="blog-detail.html">minimalist design trend in 2018.</a></h3>
+                                   <h3><a href="blog-detail.html">College Admission.</a></h3>
                                    <p>Lorem ipsum dolor sit consectetur adipiscing morbi venenatis.</p>
                                    <a href="blog-detail.html" class="btn section-btn">View Detail</a>
                               </div>
@@ -266,7 +267,7 @@ http://www.templatemo.com/tm-509-hydro
 
                     <div class="col-md-12 col-sm-12">
                          <div class="section-title">
-                              <h2>Our work</h2>
+                              <h2>Our School</h2>
                               <span class="line-bar">...</span>
                          </div>
                     </div>
@@ -277,10 +278,10 @@ http://www.templatemo.com/tm-509-hydro
                               <a href="#" class="image-popup">
                                    <img src="{{ asset("assets/landing/images/work-image1.jpg") }}" class="img-responsive" alt="Work">
 
-                                   <div class="work-info">
+                                   {{-- <div class="work-info">
                                         <h3>Clean &amp; Minimal</h3>
                                         <small>Product Design</small>
-                                   </div>
+                                   </div> --}}
                               </a>
                          </div>
                     </div>
@@ -291,10 +292,10 @@ http://www.templatemo.com/tm-509-hydro
                               <a href="" class="image-popup">
                                    <img src="{{ asset("assets/landing/images/work-image2.jpg") }}" class="img-responsive" alt="Work">
 
-                                   <div class="work-info">
+                                   {{-- <div class="work-info">
                                         <h3>Studio Bag</h3>
                                         <small>Branding</small>
-                                   </div>
+                                   </div> --}}
                               </a>
                          </div>
                     </div>
@@ -305,10 +306,10 @@ http://www.templatemo.com/tm-509-hydro
                               <a href="#" class="image-popup">
                                    <img src="{{ asset("assets/landing/images/work-image3.jpg") }}" class="img-responsive" alt="Work">
 
-                                   <div class="work-info">
+                                   {{-- <div class="work-info">
                                         <h3>Frame Design</h3>
                                         <small>Photography</small>
-                                   </div>
+                                   </div> --}}
                               </a>
                          </div>
                     </div>
@@ -316,13 +317,13 @@ http://www.templatemo.com/tm-509-hydro
                     <div class="col-md-3 col-sm-6">
                          <!-- WORK THUMB -->
                          <div class="work-thumb">
-                              <a href="images/work-image4.jpg" class="image-popup">
-                                   <img src="{{ asset("assets/landing/images/work-image4.jpg") }}" class="img-responsive" alt="Work">
+                              <a href="images/work-image42.jpg" class="image-popup">
+                                   <img src="{{ asset("assets/landing/images/work-image42.jpg") }}" class="img-responsive" height="400px" alt="Work">
 
-                                   <div class="work-info">
+                                   {{-- <div class="work-info">
                                         <h3>Paint Work</h3>
                                         <small>Art, Design</small>
-                                   </div>
+                                   </div> --}}
                               </a>
                          </div>
                     </div>

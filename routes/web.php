@@ -113,6 +113,8 @@ Route::group(['middleware' => 'checkRole:assessor'], function () {
 });
 Route::group(['middleware' => 'checkRole:teachercollege'], function () {
     Route::get('/teacher/createprofile', [AdminController::class, 'showAdminProfileCreate'])->name('teacher.createprofile');
+    Route::post('/storeEmployeeProfile', [AdminController::class, 'storeAdminProfile'])->name('storeAdminProfile');
+    route::get('/teacher/home',[AdminController::class,'indexteacher'])->middleware('auth')->name('teacherhome');
 });
 
 

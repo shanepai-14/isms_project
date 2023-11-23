@@ -272,7 +272,7 @@ $profile = $user->profiles;
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link " href="index.html">
+        <a class="nav-link " href="/home">
           <i class="bi bi-grid"></i>
           <span>Dashboard</span>
         </a>
@@ -289,12 +289,12 @@ $profile = $user->profiles;
             </a>
           </li>
           <li>
-            <a href="components-accordion.html">
+            <a href="#">
               <i class="bi bi-receipt"style="font-size: 1rem;"></i><span>Financial Statement</span>
             </a>
           </li>
           <li>
-            <a href="components-badges.html">
+            <a href="#">
               <i class="bi bi-file-text" style="font-size: 1rem;"></i><span>Academic Transcript</span>
             </a>
           </li>

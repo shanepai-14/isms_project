@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CourseClass;
 use Illuminate\Http\Request;
 use App\Models\StudentProfile;
-
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
-
+use App\Models\Enrollment;
 use App\Models\User;
 
 class StudentController extends Controller
@@ -37,7 +38,21 @@ class StudentController extends Controller
     }
     public function showStudentHome()
     {
-        return view('student.studenthome');
+        $user_id = Auth::id();
+        
+        $enrollment = Enrollment::where('user_id', $user_id)
+        ->orderBy('enrollments.created_at', 'desc')->first();
+    
+        $enrollmentid= $enrollment ->id;
+
+       $courses = CourseClass::where('enrollment_id',$enrollmentid)
+        ->leftJoin('users', 'users.id', '=', 'course_classes.teacher_id')
+        ->join('courses', 'courses.id', '=', 'course_classes.course_id')
+        ->select('courses.course_code', 'courses.course_description', 'users.name', 'course_classes.schedule')->get();
+       
+   
+
+        return view('student.studenthome',compact('enrollment','courses'));
     }
     public function showStudentProfileCreate()
     {
