@@ -39,20 +39,33 @@ class StudentController extends Controller
     public function showStudentHome()
     {
         $user_id = Auth::id();
-        
+        $enrollment='';
+        $courses ='';
+        try{
         $enrollment = Enrollment::where('user_id', $user_id)
         ->orderBy('enrollments.created_at', 'desc')->first();
     
-        $enrollmentid= $enrollment ->id;
-
-       $courses = CourseClass::where('enrollment_id',$enrollmentid)
-        ->leftJoin('users', 'users.id', '=', 'course_classes.teacher_id')
-        ->join('courses', 'courses.id', '=', 'course_classes.course_id')
-        ->select('courses.course_code', 'courses.course_description', 'users.name', 'course_classes.schedule')->get();
-       
+        $enrollmentid= $enrollment->id;
+        $enrollmentschool_year= $enrollment->school_year;
    
+       $courses = CourseClass::where('enrollment_id',$enrollmentid)
+       ->join('courses', 'course_classes.course_id', '=', 'courses.id')
+        ->leftJoin('schedules', function ($join) use ($enrollmentschool_year) {
+            $join->on('schedules.course_id', '=', 'courses.id')
+                 ->where('schedules.school_year', '=', $enrollmentschool_year);
+        })
+       ->leftjoin('users', 'schedules.teacher_id', '=', 'users.id')
+        ->select('courses.course_code', 'courses.course_description', 'users.name', 'schedules.schedule')->get();
 
         return view('student.studenthome',compact('enrollment','courses'));
+    }catch(\Exception $e){
+
+        return view('student.studenthome',compact('enrollment','courses'));
+      
+    }
+   
+
+       
     }
     public function showStudentProfileCreate()
     {

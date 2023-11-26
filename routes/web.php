@@ -77,8 +77,11 @@ Route::group(['middleware' => 'checkRole:admin'], function () {
     
     Route::get('/admin/ClassSchedule/{enrollment_type}/{course}/{school_year}', [ScheduleController::class, 'ShowSchedule'])->name('ShowSchedule');
 
+    Route::get('/admin/ClassScheduleV2/{enrollment_type}/{course}/{school_year}', [ScheduleController::class, 'ShowScheduleV2'])->name('ShowScheduleV2');
+
     
     Route::post('/updateSchedule', [ScheduleController::class, 'updateSchedule'])->name('updateSchedule');
+    Route::post('/CreateSchedule', [ScheduleController::class, 'CreateSchedule'])->name('CreateSchedule');
 });
 
 Route::group(['middleware' => 'checkRole:student'], function () {
@@ -115,6 +118,7 @@ Route::group(['middleware' => 'checkRole:teachercollege'], function () {
     Route::get('/teacher/createprofile', [AdminController::class, 'showAdminProfileCreate'])->name('teacher.createprofile');
     Route::post('/storeEmployeeProfile', [AdminController::class, 'storeAdminProfile'])->name('storeAdminProfile');
     route::get('/teacher/home',[AdminController::class,'indexteacher'])->middleware('auth')->name('teacherhome');
+    Route::get('/teacher/profile/{profileUuid}', [AdminController::class, 'showAdminProfile'])->name('employee.profile');
 });
 
 
