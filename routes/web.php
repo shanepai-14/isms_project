@@ -10,7 +10,7 @@ use App\Http\Controllers\CourseController;
 use App\Http\Controllers\MiscellaneousController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\ScheduleController;
-
+use App\Http\Controllers\TeacherController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -82,6 +82,8 @@ Route::group(['middleware' => 'checkRole:admin'], function () {
     
     Route::post('/updateSchedule', [ScheduleController::class, 'updateSchedule'])->name('updateSchedule');
     Route::post('/CreateSchedule', [ScheduleController::class, 'CreateSchedule'])->name('CreateSchedule');
+   
+    Route::post('/UpdateExistingSchedule', [ScheduleController::class, 'updateExistingSchedule'])->name('updateExistingSchedule');
 });
 
 Route::group(['middleware' => 'checkRole:student'], function () {
@@ -119,6 +121,7 @@ Route::group(['middleware' => 'checkRole:teachercollege'], function () {
     Route::post('/storeEmployeeProfile', [AdminController::class, 'storeAdminProfile'])->name('storeAdminProfile');
     route::get('/teacher/home',[AdminController::class,'indexteacher'])->middleware('auth')->name('teacherhome');
     Route::get('/teacher/profile/{profileUuid}', [AdminController::class, 'showAdminProfile'])->name('employee.profile');
+    route::get('/teacher/subjects',[TeacherController::class,'ShowTeacherSubjects'])->middleware('auth')->name('teachersubjects');
 });
 
 
