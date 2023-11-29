@@ -72,12 +72,13 @@ Route::group(['middleware' => 'checkRole:admin'], function () {
     Route::get('/admin/miscellaneous', [AdminController::class, 'showMiscellaneousFee'])->name('adminMiscellaneous');
     Route::post('/admin/store-misc', [MiscellaneousController::class, 'CreateMisc'])->name('storeMisc');
     
-    Route::post('registerEmployee', [AdminController::class, 'storeEmployee'])->name('storeEmployee');
+    Route::post('registerEmployee', [AdminController::class, 'storeEmployees'])->name('storeEmployees');
+    Route::post('addUser', [AdminController::class, 'storeEmployees'])->name('addUser');
     Route::get('/admin/addEmployee', [AdminController::class, 'showEmployeeCreate'])->name('showEmployeeCreate');
     
     Route::get('/admin/ClassSchedule/{enrollment_type}/{course}/{school_year}', [ScheduleController::class, 'ShowSchedule'])->name('ShowSchedule');
 
-    Route::get('/admin/ClassScheduleV2/{enrollment_type}/{course}/{school_year}', [ScheduleController::class, 'ShowScheduleV2'])->name('ShowScheduleV2');
+    Route::get('/admin/ClassScheduleV2/{role}/{enrollment_type}/{course}/{school_year}', [ScheduleController::class, 'ShowScheduleV2'])->name('ShowScheduleV2');
 
     
     Route::post('/updateSchedule', [ScheduleController::class, 'updateSchedule'])->name('updateSchedule');
@@ -121,7 +122,16 @@ Route::group(['middleware' => 'checkRole:teachercollege'], function () {
     Route::post('/storeEmployeeProfile', [AdminController::class, 'storeAdminProfile'])->name('storeAdminProfile');
     route::get('/teacher/home',[AdminController::class,'indexteacher'])->middleware('auth')->name('teacherhome');
     Route::get('/teacher/profile/{profileUuid}', [AdminController::class, 'showAdminProfile'])->name('employee.profile');
-    route::get('/teacher/subjects',[TeacherController::class,'ShowTeacherSubjects'])->middleware('auth')->name('teachersubjects');
+    route::get('/teacher/subjects/{semester}/{school_year}',[TeacherController::class,'ShowTeacherSubjects'])->middleware('auth')->name('teachersubjects');
+    Route::get('/teacher/student-management/{job_order}', [AdminController::class, 'showAdminStudentManagement'])->name('teacher.studentmanagement');
+    route::get('/teacher/class/{course_id}/{semester}/{department}/{school_year}',[TeacherController::class,'ShowTeacherSubjectClass'])->middleware('auth')->name('teachersubjectclass');
+    Route::post('/updateStudentSubjectStatusRow', [EnrollmentController::class, 'updateStudentSubjectStatusRow'])->name('updateStudentSubjectStatusRow');
+    Route::post('/updateStudentSubjectGradeRow', [EnrollmentController::class, 'updateStudentSubjectGradeRow'])->name('updateStudentSubjectGradeRow');
+    Route::get('/teacher/ClassScheduleV2/{role}/{enrollment_type}/{course}/{school_year}', [ScheduleController::class, 'ShowScheduleV2'])->name('TeacherShowScheduleV2');
+    Route::get('/teacher/employee', [TeacherController::class, 'ShowTeacherEmployee'])->name('ShowTeacherEmployee');
+    Route::post('registerEmployee', [TeacherController::class, 'TeacherStoreEmployee'])->name('TeacherstoreEmployee');
+    Route::post('/UpdateExistingSchedule', [ScheduleController::class, 'updateExistingSchedule'])->name('updateExistingSchedule');
+
 });
 
 

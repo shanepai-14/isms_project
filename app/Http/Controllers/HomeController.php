@@ -14,6 +14,7 @@ class HomeController extends Controller
   
          $role=Auth()->user()->role;
          $studentprofile=Auth()->user()->profile_id;
+         $employeeprofile=Auth()->user()->employee_profile_id;
          if($role == 'student'){
             if($studentprofile !== null){
                // return view('student.studenthome');
@@ -23,7 +24,7 @@ class HomeController extends Controller
             }
             
          }else  if($role == 'admin'){
-            if($studentprofile !== null){
+            if($employeeprofile !== null){
                // return view('student.studenthome');
                return redirect()->route('adminhome')->with('message', 'Successfully Created an Account');
             }else{
@@ -39,9 +40,9 @@ class HomeController extends Controller
          }else  if($role == 'assessor'){
             return view('dashboard');
          }else  if($role == 'teachercollege'){
-            if($studentprofile !== null){
+            if($employeeprofile !== null){
                // return view('student.studenthome');
-               return redirect()->route('adminhome')->with('message', 'Successfully Created an Account');
+               return redirect()->route('teacherhome')->with('message', 'Successfully Created an Account');
             }else{
                return redirect()->route('teacher.createprofile')->with('message', 'Successfully Created an Account');
             }
