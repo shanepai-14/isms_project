@@ -61,6 +61,7 @@ Route::group(['middleware' => 'checkRole:admin'], function () {
 
     Route::post('/createseniorhighcourse', [CourseController::class, 'storeCourseSeniorHighAdmin'])->name('store.seniorhighcourses');
     Route::get('admin/senior-high-course/create', [AdminController::class, 'showCollegeSeniorCourse'])->name('admin.seniorhighcourses');
+    Route::get('admin/Student-Information/{enrollment_type}', [AdminController::class, 'ShowStudentInfoCollege'])->name('admin.studentinfocollege');
  
    
 
@@ -85,6 +86,8 @@ Route::group(['middleware' => 'checkRole:admin'], function () {
     Route::post('/CreateSchedule', [ScheduleController::class, 'CreateSchedule'])->name('CreateSchedule');
    
     Route::post('/UpdateExistingSchedule', [ScheduleController::class, 'updateExistingSchedule'])->name('updateExistingSchedule');
+
+    Route::get('/admin/student-details/{enrollment_type}/{student_id_number}', [AdminController::class, 'showStudentDetails'])->name('showStudentDetails');
 });
 
 Route::group(['middleware' => 'checkRole:student'], function () {
