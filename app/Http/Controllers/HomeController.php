@@ -36,7 +36,9 @@ class HomeController extends Controller
          }else  if($role == 'cashier'){
             return view('dashboard');
          }else  if($role == 'registrar'){
+
             return view('dashboard');
+            
          }else  if($role == 'assessor'){
             return view('dashboard');
          }else  if($role == 'teachercollege'){
@@ -47,7 +49,16 @@ class HomeController extends Controller
                return redirect()->route('teacher.createprofile')->with('message', 'Successfully Created an Account');
             }
 
+         }else  if($role == 'teacherseniorhigh'){
+            if($employeeprofile !== null){
+               // return view('student.studenthome');
+               return redirect()->route('teacherseniorhighhome')->with('message', 'Successfully Created an Account');
+            }else{
+               return redirect()->route('teacherseniorhigh.createprofile')->with('message', 'Successfully Created an Account');
+            }
+
          }
+
 
     }
 

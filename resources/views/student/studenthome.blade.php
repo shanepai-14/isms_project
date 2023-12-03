@@ -1,6 +1,13 @@
 @extends('layouts.studentlayout')
 @section('title', 'Student - Home')
 @section('content')
+<style>
+  @media screen and (max-width: 450px) {
+  .table {
+   font-size: 10px;
+  }
+}
+</style>
 <main id="main" class="main">
     
     
@@ -260,12 +267,12 @@
         <div class="card">
 
 
-          <div class="card-body pb-0">
+          <div class="card-body pb-0" >
            
             <h5 class="card-title">Schedule<span>|  </span></h5>
                 @endif
 
-              <table class="table table-sm table-bordered">
+              <table class="table table-sm table-bordered table-responsive" >
                 <thead>
 
                    <tr>

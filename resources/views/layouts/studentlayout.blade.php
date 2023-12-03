@@ -58,11 +58,7 @@
     <nav class="header-nav ms-auto">
       <ul class="d-flex align-items-center">
 
-        <li class="nav-item d-block d-lg-none">
-          <a class="nav-link nav-icon search-bar-toggle " href="#">
-            <i class="bi bi-search"></i>
-          </a>
-        </li><!-- End Search Icon-->
+      <!-- End Search Icon-->
 
 
 
@@ -71,7 +67,7 @@
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
             {{-- <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle"> --}}
-            <span class="d-none d-md-block dropdown-toggle ps-2">{{ Auth::user()->name }}</span>
+            <span class=" d-md-block dropdown-toggle ps-2">{{ Auth::user()->name }}</span>
           </a><!-- End Profile Iamge Icon -->
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
@@ -85,10 +81,10 @@
 
             <li>
               @php
-$user = auth()->user();
-$profile = $user->profiles;
-@endphp
-@if($profile)
+            $user = auth()->user();
+            $profile = $user->profiles;
+            @endphp
+            @if($profile)
               <a class="dropdown-item d-flex align-items-center" href="{{ route('student.profile', ['profileUuid' =>$profile->uuid]) }}">
 
                 <i class="bi bi-person"></i>
@@ -103,11 +99,7 @@ $profile = $user->profiles;
             </li>
             <li>
               <hr class="dropdown-divider">
-            </li>
-
-          
-           
-          
+            </li
 
             <li>
                 <form method="POST" action="{{ route('logout') }}">
@@ -156,9 +148,21 @@ $profile = $user->profiles;
             </a>
           </li>
           <li>
-            <a href="#">
-              <i class="bi bi-file-text" style="font-size: 1rem;"></i><span>Academic Transcript</span>
+            <a class="nav-link collapsed" data-bs-target="#forms-navBSITsched" data-bs-toggle="collapse" href="#">
+              <i class="bi bi-file-text" style="font-size: 1rem;"></i><span>Academic Transcript</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
+            <ul id="forms-navBSITsched" class="nav-content collapse" data-bs-parent="#classched">
+              <li>
+                <a style="font-size: 15px; padding : 0px 0px 0px 35px" href="{{ route('showCurrentStudentDetails', ['enrollment_type' => 'college', 'student_id_number' => $profile->student_id_number]) }}">  
+                  <i class="bi bi-circle"></i><span>College</span>
+                </a>
+              </li>
+              <li>
+                <a style="font-size: 15px; padding : 0px 0px 0px 35px" href="{{ route('showCurrentStudentDetails', ['enrollment_type' => 'Senior High', 'student_id_number' => $profile->student_id_number]) }}">
+                  <i class="bi bi-circle"></i><span>Senior High</span>
+                </a>
+              </li>
+            </ul>
           </li>
        
         </ul>

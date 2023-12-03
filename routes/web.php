@@ -11,6 +11,8 @@ use App\Http\Controllers\MiscellaneousController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\TeacherController;
+use App\Http\Controllers\TeacherSeniorHighController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -62,8 +64,8 @@ Route::group(['middleware' => 'checkRole:admin'], function () {
     Route::post('/createseniorhighcourse', [CourseController::class, 'storeCourseSeniorHighAdmin'])->name('store.seniorhighcourses');
     Route::get('admin/senior-high-course/create', [AdminController::class, 'showCollegeSeniorCourse'])->name('admin.seniorhighcourses');
     Route::get('admin/Student-Information/{enrollment_type}', [AdminController::class, 'ShowStudentInfoCollege'])->name('admin.studentinfocollege');
- 
-   
+    
+    Route::get('/SearchStudentInfoCollege', [AdminController::class, 'SearchStudentInfoCollege'])->name('admin.SearchStudentInfoCollege');
 
     Route::post('/updateStudentPayment', [EnrollmentController::class, 'updateStudentPayment'])->name('updateStudentPayment');
     Route::post('/updateScholarShip', [EnrollmentController::class, 'updateScholarShip'])->name('updateScholarShip');
@@ -109,7 +111,7 @@ Route::group(['middleware' => 'checkRole:student'], function () {
         Route::get('/getClassesId', [EnrollmentController::class, 'populateClassesTable'])->name('getClassesId');
         Route::get('/search', [EnrollmentController::class, 'StudentSearch'])->name('search');
         Route::get('/student/student-management/{job_order}', [AdminController::class, 'showAdminStudentManagement'])->name('student.studentmanagement');
-       
+        Route::get('/student/student-details/{enrollment_type}/{student_id_number}', [AdminController::class, 'showStudentDetails'])->name('showCurrentStudentDetails');
     });
 });
 
@@ -117,14 +119,40 @@ Route::group(['middleware' => 'checkRole:registrar'], function () {
     // Define routes accessible to registrar
 });
 
-Route::group(['middleware' => 'checkRole:assessor'], function () {
-    // Define routes accessible to assessor
+Route::group(['middleware' => 'checkRole:teacherseniorhigh'], function () {
+
+    Route::get('/teacher/seniorhigh/createprofile', [TeacherSeniorHighController::class, 'showTeacherSeniorHighProfileCreate'])->name('teacherseniorhigh.createprofile'); //done
+
+    Route::post('/storeEmployeeProfileSeniorHigh', [AdminController::class, 'storeAdminProfile'])->name('storeEmployeeProfileSeniorHigh');//done
+
+    route::get('/teacher/seniorhigh/home',[TeacherSeniorHighController::class,'indexteacherseniorhigh'])->middleware('auth')->name('teacherseniorhighhome');//done
+
+    Route::get('/teacher/seniorhigh/profile/{profileUuid}', [TeacherSeniorHighController::class, 'showTeacherSeniorHighProfile'])->name('employeeseniorhigh.profile');//done
+
+    route::get('/teacher/seniorhigh/subjects/{semester}/{school_year}',[TeacherSeniorHighController::class,'ShowTeacherSubjects'])->middleware('auth')->name('teacherseniorhighsubjects');//done
+
+    Route::get('/teacher/seniorhigh/student-management/{job_order}', [TeacherSeniorHighController::class, 'showTeacherSeniorHighStudentManagement'])->name('teacherseniorhigh.studentmanagement'); //done
+
+    route::get('/teacher/seniorhigh/class/{course_id}/{semester}/{department}/{school_year}',[TeacherSeniorHighController::class,'ShowTeacherSubjectClass'])->middleware('auth')->name('teachershssubjectclass');//done
+    
+    Route::post('/updateSeniorHighStudentSubjectStatusRow', [EnrollmentController::class, 'updateStudentSubjectStatusRow'])->name('updateSeniorHighStudentSubjectStatusRow');
+
+    Route::post('/updateSeniorHighStudentSubjectGradeRow', [EnrollmentController::class, 'updateStudentSubjectGradeRow'])->name('updateStudentSeniorHighSubjectGradeRow');
+    Route::get('/teacher/seniorhigh/ClassScheduleV2/{role}/{enrollment_type}/{course}/{school_year}', [ScheduleController::class, 'ShowScheduleV2'])->name('TeacherSeniorHighShowScheduleV2');
+    Route::get('/teacher/seniorhigh/employee', [TeacherSeniorHighController::class, 'ShowTeacherEmployee'])->name('ShowTeacherSeniorHighEmployee');
+    Route::post('registerEmployeeSeniorHigh', [TeacherController::class, 'TeacherStoreEmployee'])->name('TeacherSeniorHighstoreEmployee');
+    Route::post('/TeacherSeniorHighUpdateExistingSchedule', [ScheduleController::class, 'updateExistingSchedule'])->name('TeacherSeniorHighupdateExistingSchedule');
+    Route::post('/Teacher/seniorhigh/CreateSchedule', [ScheduleController::class, 'CreateSchedule'])->name('TeacherSeniorHighCreateSchedule');
+    Route::get('Teacher/seniorhigh/Student-Information', [TeacherSeniorHighController::class, 'ShowStudentSeniorHighbyDepartment'])->name('teacherseniorhigh.studentlistbydepartment');
+
+    Route::get('/TeacherSearchStudentInfoSeniorHigh', [TeacherSeniorHighController::class, 'SearchStudentInfoSeniorHigh'])->name('Teacher.SearchStudentInfoSeniorHigh');
+    Route::get('/teacher/seniorhigh/student-details/{enrollment_type}/{student_id_number}', [AdminController::class, 'showStudentDetails'])->name('TeacherSeniorHighshowCurrentStudentDetails');
 });
 Route::group(['middleware' => 'checkRole:teachercollege'], function () {
     Route::get('/teacher/createprofile', [AdminController::class, 'showAdminProfileCreate'])->name('teacher.createprofile');
-    Route::post('/storeEmployeeProfile', [AdminController::class, 'storeAdminProfile'])->name('storeAdminProfile');
+    Route::post('/storeEmployeeProfile', [AdminController::class, 'storeAdminProfile'])->name('storeEmployeeProfile');
     route::get('/teacher/home',[AdminController::class,'indexteacher'])->middleware('auth')->name('teacherhome');
-    Route::get('/teacher/profile/{profileUuid}', [AdminController::class, 'showAdminProfile'])->name('employee.profile');
+    Route::get('/teacher/profile/{profileUuid}', [AdminController::class, 'showEmployeeProfile'])->name('employee.profile');
     route::get('/teacher/subjects/{semester}/{school_year}',[TeacherController::class,'ShowTeacherSubjects'])->middleware('auth')->name('teachersubjects');
     Route::get('/teacher/student-management/{job_order}', [AdminController::class, 'showAdminStudentManagement'])->name('teacher.studentmanagement');
     route::get('/teacher/class/{course_id}/{semester}/{department}/{school_year}',[TeacherController::class,'ShowTeacherSubjectClass'])->middleware('auth')->name('teachersubjectclass');
@@ -133,8 +161,12 @@ Route::group(['middleware' => 'checkRole:teachercollege'], function () {
     Route::get('/teacher/ClassScheduleV2/{role}/{enrollment_type}/{course}/{school_year}', [ScheduleController::class, 'ShowScheduleV2'])->name('TeacherShowScheduleV2');
     Route::get('/teacher/employee', [TeacherController::class, 'ShowTeacherEmployee'])->name('ShowTeacherEmployee');
     Route::post('registerEmployee', [TeacherController::class, 'TeacherStoreEmployee'])->name('TeacherstoreEmployee');
-    Route::post('/UpdateExistingSchedule', [ScheduleController::class, 'updateExistingSchedule'])->name('updateExistingSchedule');
+    Route::post('/TeacherUpdateExistingSchedule', [ScheduleController::class, 'updateExistingSchedule'])->name('TeacherupdateExistingSchedule');
+    Route::post('/TeacherCreateSchedule', [ScheduleController::class, 'CreateSchedule'])->name('TeacherCreateSchedule');
+    Route::get('Teacher/Student-Information/{enrollment_type}', [TeacherController::class, 'ShowStudentCollegebyDepartment'])->name('teacher.studentlistbydepartment');
 
+    Route::get('/TeacherSearchStudentInfoCollege', [AdminController::class, 'SearchStudentInfoCollege'])->name('Teacher.SearchStudentInfoCollege');
+    Route::get('/teacher/student-details/{enrollment_type}/{student_id_number}', [AdminController::class, 'showStudentDetails'])->name('TeachershowCurrentStudentDetails');
 });
 
 

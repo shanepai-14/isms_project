@@ -50,6 +50,32 @@ table {
   font-size: 18px;
 }
 
+@media screen and (max-width: 450px) {
+    .table thead th {
+    border: none;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-size: 15px;
+    font-weight: bolD;
+    color: black;
+}
+
+.table tbody th, .table tbody td {
+    border: none;
+    padding: 5px;
+    font-size: 12px;
+    background: #fff;
+    vertical-align: middle;
+    text-align: start;
+}
+.table thead th {
+    border: none;
+    padding: 5px;
+    font-size: 12px;
+    font-weight: bold;
+    color: black;
+}
+}
 
   </style>
     
@@ -90,7 +116,7 @@ table {
           <div class="card h-100 w-100 d-inline-block">
             <div class="card-body pt-3">
               <!-- Bordered Tabs -->
-              <div class="container mt-5 text-center position-relative">
+              <div class="container mt-2 text-center position-relative">
                 <div id="loading-screen" style="display:none; z-index:2;">
                     <div id="loading-spinner"></div>
                     <div id="loading-text">Loading...</div>

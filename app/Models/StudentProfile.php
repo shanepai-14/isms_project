@@ -28,7 +28,10 @@ class StudentProfile extends Model
         'tor_doc',
         'form137_doc',
         'status',
-        'student_id_number'
+        'student_id_number',
+        'current_course', 
+        'current_year',
+        'current_enrollment_type',
     ];
     
 

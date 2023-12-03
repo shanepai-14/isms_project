@@ -1,6 +1,17 @@
 @extends('layouts.studentlayout')
 @section('title', 'Student Profile')
 @section('content')
+
+<style>
+    @media screen and (max-width: 450px) {
+  .nav-link {
+   font-size: 15px;
+   padding-left: 0.5rem;
+   padding-right : 0.5rem;
+  }
+}
+</style>
+
 <main id="main" class="main">
 
     <div class="pagetitle">
@@ -25,11 +36,8 @@
               <img src="{{ asset('storage/' . $studentProfile->avatar)}}" alt="Profile" class="rounded-circle">
               <h2>{{ Auth::user()->name }}</h2>
               <h3>{{ ucfirst(Auth::user()->role) }}</h3>
-              <div class="social-links mt-2">
-                <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
-                <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
-                <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
-                <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+              <div >
+              <h3>ID : <a href="">{{$studentProfile->student_id_number}}</a></h3>
               </div>
             </div>
           </div>
@@ -43,7 +51,7 @@
               <ul class="nav nav-tabs nav-tabs-bordered">
 
                 <li class="nav-item">
-                  <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-overview">Overview</button>
+                  <button class="nav-link active"   data-bs-toggle="tab" data-bs-target="#profile-overview">Overview</button>
                 </li>
 
                 <li class="nav-item">
@@ -52,8 +60,8 @@
 
              
 
-                <li class="nav-item">
-                  <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-change-password">Change Password</button>
+                <li class="nav-item ">
+                  <button class="nav-link " data-bs-toggle="tab" data-bs-target="#profile-change-password">Change Password</button>
                 </li>
 
               </ul>
