@@ -163,6 +163,7 @@ return [
         /*
          * Application Service Providers...
          */
+        Seblhaire\DateRangePickerHelper\DateRangePickerHelperServiceProvider::class,
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
         // App\Providers\BroadcastServiceProvider::class,
@@ -183,6 +184,7 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         // 'Example' => App\Facades\Example::class,
+        'DateRangePickerHelper' => Seblhaire\DateRangePickerHelper\DateRangePickerHelper::class,
     ])->toArray(),
 
 ];

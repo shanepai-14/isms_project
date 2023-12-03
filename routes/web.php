@@ -8,10 +8,10 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\MiscellaneousController;
-use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\TeacherSeniorHighController;
+use App\Http\Controllers\RegistrarController;
 
 /*
 |--------------------------------------------------------------------------
@@ -58,10 +58,10 @@ Route::group(['middleware' => 'checkRole:admin'], function () {
     Route::post('/updateStudentSubjectStatusRow', [EnrollmentController::class, 'updateStudentSubjectStatusRow'])->name('updateStudentSubjectStatusRow');
 
     Route::post('/updateStudentSubjectGradeRow', [EnrollmentController::class, 'updateStudentSubjectGradeRow'])->name('updateStudentSubjectGradeRow');
-    Route::post('/createcollegecourse', [CourseController::class, 'storeCourseCollegeAdmin'])->name('store.collegecourse');
+    Route::post('/createcollegecourseadmin', [CourseController::class, 'storeCourseCollegeAdmin'])->name('store.collegecourse');
     Route::get('admin/college-course/create', [AdminController::class, 'showCollegeCreateCourse'])->name('admin.collegecourses');
 
-    Route::post('/createseniorhighcourse', [CourseController::class, 'storeCourseSeniorHighAdmin'])->name('store.seniorhighcourses');
+    Route::post('/admin/createseniorhighcourse', [CourseController::class, 'storeCourseSeniorHighAdmin'])->name('store.seniorhighcourses');
     Route::get('admin/senior-high-course/create', [AdminController::class, 'showCollegeSeniorCourse'])->name('admin.seniorhighcourses');
     Route::get('admin/Student-Information/{enrollment_type}', [AdminController::class, 'ShowStudentInfoCollege'])->name('admin.studentinfocollege');
     
@@ -90,6 +90,8 @@ Route::group(['middleware' => 'checkRole:admin'], function () {
     Route::post('/UpdateExistingSchedule', [ScheduleController::class, 'updateExistingSchedule'])->name('updateExistingSchedule');
 
     Route::get('/admin/student-details/{enrollment_type}/{student_id_number}', [AdminController::class, 'showStudentDetails'])->name('showStudentDetails');
+    Route::get('/admin/transaction-history', [AdminController::class, 'showAdminPayments'])->name('showAdminPayments');
+    
 });
 
 Route::group(['middleware' => 'checkRole:student'], function () {
@@ -116,7 +118,65 @@ Route::group(['middleware' => 'checkRole:student'], function () {
 });
 
 Route::group(['middleware' => 'checkRole:registrar'], function () {
-    // Define routes accessible to registrar
+    
+    route::get('/registrar/home',[RegistrarController::class,'index'])->middleware('auth')->name('registrarhome');
+    Route::post('/storeRegistrarProfile', [RegistrarController::class, 'storeRegistrarProfile'])->name('storeRegistrarProfile');
+    Route::get('/registrar/createprofile', [RegistrarController::class, 'showRegistrarProfileCreate'])->name('registrar.createprofile');
+    Route::get('/registrar/profile/{profileUuid}', [RegistrarController::class, 'showAdminProfile'])->name('registrar.profile');
+    Route::put('/registrar/update/{profileUuid}', [RegistrarController::class, 'updateRegistrarProfile'])->name('registrar.profileupdate');
+    // Route::get('/registrar/enrollment', [RegistrarController::class, 'showAdminEnrollment'])->name('student.enrollment');
+    Route::get('/registrar/enrollmentlist', [EnrollmentController::class, 'RegistrarPopulateEnrollmentTable'])->name('registrar.enrollmentlist');
+    Route::get('/getClassesIdRegistrar', [EnrollmentController::class, 'AdminPopulateClassesTable'])->name('getClassesIdRegistrar');
+    Route::get('/getRegistrarStudentAccount', [EnrollmentController::class, 'populateStudentAccount'])->name('getRegistrarStudentAccount');
+    Route::get('/RegistrarSearch', [EnrollmentController::class, 'AllStudentSearch'])->name('RegistrarSearch');
+    Route::get('/RegistrarStudentAccountSearch', [RegistrarController::class, 'AllStudentAccountSearch'])->name('RegistrarStudentAccountSearch');
+    Route::get('/registrar/student-acounts', [RegistrarController::class, 'showRegistrarStudentAccountList'])->name('RegistrarStudentAccounts');
+    Route::post('/registrar-update-student-account-status', [RegistrarController::class, 'updateStudentAccountStatus'])->name('registrar-update-student-account-status');
+    Route::get('/registrar/student-management/{job_order}', [RegistrarController::class, 'showAdminStudentManagement'])->name('registrar.studentmanagement');
+    Route::post('/storeRegistrarPayment', [RegistrarController::class, 'StorePayment'])->name('storeRegistrarPayment');
+    Route::get('/get-subjects-management', [CourseController::class, 'getSubjects'])->name('get.subjects-management');
+    
+    Route::post('/AddingStudentSubjects', [EnrollmentController::class, 'AddingStudentSubjects'])->name('AddingStudentSubjects');
+    Route::post('/updateRegistrarStudentSubjectStatusRow', [EnrollmentController::class, 'updateStudentSubjectStatusRow'])->name('updateRegistrarStudentSubjectStatusRow');
+
+    Route::post('/updateRegistrarStudentSubjectGradeRow', [EnrollmentController::class, 'updateStudentSubjectGradeRow'])->name('updateRegistrarStudentSubjectGradeRow');
+    Route::post('/createcollegecourseregistrar', [CourseController::class, 'storeCourseCollegeRegistrar'])->name('store.collegecourseregistrar');
+    Route::get('registrar/college-course/create', [RegistrarController::class, 'showCollegeCreateCourse'])->name('registrar.collegecourses');
+
+    Route::post('/createseniorhighcourseregistrar', [CourseController::class, 'storeCourseSeniorHighRegistrar'])->name('store.seniorhighcoursesregistrar');
+    Route::get('registrar/senior-high-course/create', [RegistrarController::class, 'showCollegeSeniorCourse'])->name('registrar.seniorhighcourses');
+    Route::get('registrar/Student-Information/{enrollment_type}', [RegistrarController::class, 'ShowStudentInfoCollege'])->name('registrar.studentinfocollege');
+    
+    Route::get('/SearchRegistrarStudentInfoCollege', [RegistrarController::class, 'SearchStudentInfoCollege'])->name('registrar.SearchRegistrarStudentInfoCollege');
+
+    Route::post('/updateRegistrarStudentPayment', [EnrollmentController::class, 'updateStudentPayment'])->name('updateRegistrarStudentPayment');
+    Route::post('/updateScholarShip', [EnrollmentController::class, 'updateScholarShip'])->name('updateScholarShip');
+
+    Route::get('/registrar/student-management/{job_order}/{enrollment_status}', [AdminController::class, 'updateEnrollmentStatus'])->name('registrar.studentmanagementenrollmentstatus');
+
+    Route::get('/registrar/miscellaneous', [RegistrarController::class, 'showMiscellaneousFee'])->name('registrarMiscellaneous');
+    Route::post('/registrar/store-misc', [MiscellaneousController::class, 'RegistrarCreateMisc'])->name('registrarstoreMisc');
+    
+    Route::post('/storeRegistrarEmployees', [RegistrarController::class, 'storeRegistrarEmployees'])->name('storeRegistrarEmployees');
+
+    Route::get('/registrar/add-registrarstaff', [RegistrarController::class, 'showEmployeeCreate'])->name('RegistrarshowEmployeeCreate');
+    
+    Route::get('/registrar/ClassSchedule/{enrollment_type}/{course}/{school_year}', [ScheduleController::class, 'ShowSchedule'])->name('ShowSchedule');
+
+    Route::get('/registrar/ClassScheduleV2/{role}/{enrollment_type}/{course}/{school_year}', [ScheduleController::class, 'ShowScheduleV2'])->name('ShowRegistrarScheduleV2');
+
+    
+    Route::post('/updateSchedule', [ScheduleController::class, 'updateSchedule'])->name('updateSchedule');
+    Route::post('/CreateSchedule', [ScheduleController::class, 'CreateSchedule'])->name('CreateSchedule');
+   
+    Route::post('/UpdateExistingSchedule', [ScheduleController::class, 'updateExistingSchedule'])->name('updateExistingSchedule');
+
+    Route::get('/registrar/student-details/{enrollment_type}/{student_id_number}', [RegistrarController::class, 'showStudentDetails'])->name('showRegistrarStudentDetails');
+
+
+
+
+
 });
 
 Route::group(['middleware' => 'checkRole:teacherseniorhigh'], function () {
