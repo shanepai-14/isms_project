@@ -92,6 +92,7 @@ Route::group(['middleware' => 'checkRole:admin'], function () {
     Route::get('/admin/student-details/{enrollment_type}/{student_id_number}', [AdminController::class, 'showStudentDetails'])->name('showStudentDetails');
     Route::get('/admin/transaction-history', [AdminController::class, 'showAdminPayments'])->name('showAdminPayments');
     Route::get('/admin-search-transaction-history', [AdminController::class, 'SearchTransaction'])->name('admin-search-transaction-history');
+    Route::get('/admin-update-fee', [AdminController::class, 'ViewMiscfees'])->name('admin-update-fee');
 });
 
 Route::group(['middleware' => 'checkRole:student'], function () {
@@ -134,9 +135,9 @@ Route::group(['middleware' => 'checkRole:registrar'], function () {
     Route::post('/registrar-update-student-account-status', [RegistrarController::class, 'updateStudentAccountStatus'])->name('registrar-update-student-account-status');
     Route::get('/registrar/student-management/{job_order}', [RegistrarController::class, 'showAdminStudentManagement'])->name('registrar.studentmanagement');
     Route::post('/storeRegistrarPayment', [RegistrarController::class, 'StorePayment'])->name('storeRegistrarPayment');
-    Route::get('/get-subjects-management', [CourseController::class, 'getSubjects'])->name('get.subjects-management');
+    Route::get('/get-subjects-management-registrar', [CourseController::class, 'getSubjects'])->name('get.subjects-management-registrar');
     
-    Route::post('/AddingStudentSubjects', [EnrollmentController::class, 'AddingStudentSubjects'])->name('AddingStudentSubjects');
+    Route::post('/AddingStudentSubjects-registrar', [EnrollmentController::class, 'AddingStudentSubjects'])->name('AddingStudentSubjects-registrar');
     Route::post('/updateRegistrarStudentSubjectStatusRow', [EnrollmentController::class, 'updateStudentSubjectStatusRow'])->name('updateRegistrarStudentSubjectStatusRow');
 
     Route::post('/updateRegistrarStudentSubjectGradeRow', [EnrollmentController::class, 'updateStudentSubjectGradeRow'])->name('updateRegistrarStudentSubjectGradeRow');
@@ -150,7 +151,7 @@ Route::group(['middleware' => 'checkRole:registrar'], function () {
     Route::get('/SearchRegistrarStudentInfoCollege', [RegistrarController::class, 'SearchStudentInfoCollege'])->name('registrar.SearchRegistrarStudentInfoCollege');
 
     Route::post('/updateRegistrarStudentPayment', [EnrollmentController::class, 'updateStudentPayment'])->name('updateRegistrarStudentPayment');
-    Route::post('/updateScholarShip', [EnrollmentController::class, 'updateScholarShip'])->name('updateScholarShip');
+    Route::post('/updateScholarShipRegistrar', [EnrollmentController::class, 'updateScholarShip'])->name('updateScholarShipRegistrar');
 
     Route::get('/registrar/student-management/{job_order}/{enrollment_status}', [AdminController::class, 'updateEnrollmentStatus'])->name('registrar.studentmanagementenrollmentstatus');
 
@@ -217,7 +218,7 @@ Route::group(['middleware' => 'checkRole:teachercollege'], function () {
     route::get('/teacher/subjects/{semester}/{school_year}',[TeacherController::class,'ShowTeacherSubjects'])->middleware('auth')->name('teachersubjects');
     Route::get('/teacher/student-management/{job_order}', [AdminController::class, 'showAdminStudentManagement'])->name('teacher.studentmanagement');
     route::get('/teacher/class/{course_id}/{semester}/{department}/{school_year}',[TeacherController::class,'ShowTeacherSubjectClass'])->middleware('auth')->name('teachersubjectclass');
-    Route::post('/updateStudentSubjectStatusRow', [EnrollmentController::class, 'updateStudentSubjectStatusRow'])->name('updateStudentSubjectStatusRow');
+    Route::post('/TeacherupdateStudentSubjectStatusRow', [EnrollmentController::class, 'updateStudentSubjectStatusRow'])->name('TeacherupdateStudentSubjectStatusRow');
     Route::post('/updateStudentSubjectGradeRow', [EnrollmentController::class, 'updateStudentSubjectGradeRow'])->name('updateStudentSubjectGradeRow');
     Route::get('/teacher/ClassScheduleV2/{role}/{enrollment_type}/{course}/{school_year}', [ScheduleController::class, 'ShowScheduleV2'])->name('TeacherShowScheduleV2');
     Route::get('/teacher/employee', [TeacherController::class, 'ShowTeacherEmployee'])->name('ShowTeacherEmployee');
