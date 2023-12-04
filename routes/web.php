@@ -91,7 +91,7 @@ Route::group(['middleware' => 'checkRole:admin'], function () {
 
     Route::get('/admin/student-details/{enrollment_type}/{student_id_number}', [AdminController::class, 'showStudentDetails'])->name('showStudentDetails');
     Route::get('/admin/transaction-history', [AdminController::class, 'showAdminPayments'])->name('showAdminPayments');
-    
+    Route::get('/admin-search-transaction-history', [AdminController::class, 'SearchTransaction'])->name('admin-search-transaction-history');
 });
 
 Route::group(['middleware' => 'checkRole:student'], function () {
@@ -172,7 +172,8 @@ Route::group(['middleware' => 'checkRole:registrar'], function () {
     Route::post('/UpdateExistingSchedule', [ScheduleController::class, 'updateExistingSchedule'])->name('updateExistingSchedule');
 
     Route::get('/registrar/student-details/{enrollment_type}/{student_id_number}', [RegistrarController::class, 'showStudentDetails'])->name('showRegistrarStudentDetails');
-
+    Route::get('/registrar/transaction-history', [RegistrarController::class, 'showRegistrarPayments'])->name('showRegistrarPayments');
+    Route::get('/registrar-search-transaction-history', [AdminController::class, 'SearchTransaction'])->name('registrar-search-transaction-history');
 
 
 
