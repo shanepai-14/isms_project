@@ -74,7 +74,8 @@ Route::group(['middleware' => 'checkRole:admin'], function () {
 
     Route::get('/admin/miscellaneous', [AdminController::class, 'showMiscellaneousFee'])->name('adminMiscellaneous');
     Route::post('/admin/store-misc', [MiscellaneousController::class, 'CreateMisc'])->name('storeMisc');
-    
+    Route::post('/updateMiscellaneousFee', [MiscellaneousController::class, 'UpdateMisc'])
+    ->name('updateMiscellaneousFee');
     Route::post('registerEmployee', [AdminController::class, 'storeEmployees'])->name('storeEmployees');
     Route::post('addUser', [AdminController::class, 'storeEmployees'])->name('addUser');
     Route::get('/admin/addEmployee', [AdminController::class, 'showEmployeeCreate'])->name('showEmployeeCreate');
@@ -157,6 +158,10 @@ Route::group(['middleware' => 'checkRole:registrar'], function () {
 
     Route::get('/registrar/miscellaneous', [RegistrarController::class, 'showMiscellaneousFee'])->name('registrarMiscellaneous');
     Route::post('/registrar/store-misc', [MiscellaneousController::class, 'RegistrarCreateMisc'])->name('registrarstoreMisc');
+    Route::get('/registrar-update-fee', [AdminController::class, 'ViewMiscfees'])->name('registrar-update-fee');
+    
+    Route::post('/update-miscellaneous-fee', [MiscellaneousController::class, 'UpdateMiscRegistrar'])
+    ->name('updateMiscellaneousFeeRegistrar');
     
     Route::post('/storeRegistrarEmployees', [RegistrarController::class, 'storeRegistrarEmployees'])->name('storeRegistrarEmployees');
 
@@ -168,9 +173,9 @@ Route::group(['middleware' => 'checkRole:registrar'], function () {
 
     
     Route::post('/updateSchedule', [ScheduleController::class, 'updateSchedule'])->name('updateSchedule');
-    Route::post('/CreateSchedule', [ScheduleController::class, 'CreateSchedule'])->name('CreateSchedule');
+    Route::post('/CreateScheduleRegistrar', [ScheduleController::class, 'CreateSchedule'])->name('CreateScheduleRegistrar');
    
-    Route::post('/UpdateExistingSchedule', [ScheduleController::class, 'updateExistingSchedule'])->name('updateExistingSchedule');
+    Route::post('/UpdateExistingScheduleRegistrar', [ScheduleController::class, 'updateExistingSchedule'])->name('updateExistingScheduleRegistrar');
 
     Route::get('/registrar/student-details/{enrollment_type}/{student_id_number}', [RegistrarController::class, 'showStudentDetails'])->name('showRegistrarStudentDetails');
     Route::get('/registrar/transaction-history', [RegistrarController::class, 'showRegistrarPayments'])->name('showRegistrarPayments');
@@ -219,7 +224,7 @@ Route::group(['middleware' => 'checkRole:teachercollege'], function () {
     Route::get('/teacher/student-management/{job_order}', [AdminController::class, 'showAdminStudentManagement'])->name('teacher.studentmanagement');
     route::get('/teacher/class/{course_id}/{semester}/{department}/{school_year}',[TeacherController::class,'ShowTeacherSubjectClass'])->middleware('auth')->name('teachersubjectclass');
     Route::post('/TeacherupdateStudentSubjectStatusRow', [EnrollmentController::class, 'updateStudentSubjectStatusRow'])->name('TeacherupdateStudentSubjectStatusRow');
-    Route::post('/updateStudentSubjectGradeRow', [EnrollmentController::class, 'updateStudentSubjectGradeRow'])->name('updateStudentSubjectGradeRow');
+    Route::post('/TeacherupdateStudentSubjectGradeRow', [EnrollmentController::class, 'updateStudentSubjectGradeRow'])->name('TeacherupdateStudentSubjectGradeRow');
     Route::get('/teacher/ClassScheduleV2/{role}/{enrollment_type}/{course}/{school_year}', [ScheduleController::class, 'ShowScheduleV2'])->name('TeacherShowScheduleV2');
     Route::get('/teacher/employee', [TeacherController::class, 'ShowTeacherEmployee'])->name('ShowTeacherEmployee');
     Route::post('registerEmployee', [TeacherController::class, 'TeacherStoreEmployee'])->name('TeacherstoreEmployee');
