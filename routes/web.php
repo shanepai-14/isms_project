@@ -207,7 +207,7 @@ Route::group(['middleware' => 'checkRole:teacherseniorhigh'], function () {
     Route::post('/updateSeniorHighStudentSubjectGradeRow', [EnrollmentController::class, 'updateStudentSubjectGradeRow'])->name('updateStudentSeniorHighSubjectGradeRow');
     Route::get('/teacher/seniorhigh/ClassScheduleV2/{role}/{enrollment_type}/{course}/{school_year}', [ScheduleController::class, 'ShowScheduleV2'])->name('TeacherSeniorHighShowScheduleV2');
     Route::get('/teacher/seniorhigh/employee', [TeacherSeniorHighController::class, 'ShowTeacherEmployee'])->name('ShowTeacherSeniorHighEmployee');
-    Route::post('registerEmployeeSeniorHigh', [TeacherController::class, 'TeacherStoreEmployee'])->name('TeacherSeniorHighstoreEmployee');
+    Route::post('registerEmployeeSeniorHigh', [TeacherController::class, 'TeacherSeniorHighStoreEmployee'])->name('TeacherSeniorHighstoreEmployee');
     Route::post('/TeacherSeniorHighUpdateExistingSchedule', [ScheduleController::class, 'updateExistingSchedule'])->name('TeacherSeniorHighupdateExistingSchedule');
     Route::post('/Teacher/seniorhigh/CreateSchedule', [ScheduleController::class, 'CreateSchedule'])->name('TeacherSeniorHighCreateSchedule');
     Route::get('Teacher/seniorhigh/Student-Information', [TeacherSeniorHighController::class, 'ShowStudentSeniorHighbyDepartment'])->name('teacherseniorhigh.studentlistbydepartment');

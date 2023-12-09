@@ -110,8 +110,8 @@ http://www.templatemo.com/tm-509-hydro
                     <div class="col-md-6 col-sm-12">
                          <div class="home-video">
 
-                              {{-- <div class="embed-responsive embed-responsive-16by9">
-                                   <iframe width="560" height="315" src="https://www.youtube.com/embed/Ljo0s9JC_fc?si=a13IJbBBnjBZtXD_" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe> --}}
+                              <div class="embed-responsive embed-responsive-16by9">
+                                   {{-- <iframe width="560" height="315" src="https://www.youtube.com/embed/Ljo0s9JC_fc?si=a13IJbBBnjBZtXD_" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe> --}}
                                    <iframe width="560" height="310" src="https://www.youtube.com/embed/9u0k8ao8cVE?si=GaFfoW_YVNWrfTzU&amp;start=1?autoplay=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                                    {{-- <iframe src="https://www.facebook.com/plugins/video.php?height=314&href=https%3A%2F%2Fwww.facebook.com%2FDVCians%2Fvideos%2F6396058087082573%2F&show_text=false&width=560&t=0" width="560" height="314" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowFullScreen="true"></iframe>
 
