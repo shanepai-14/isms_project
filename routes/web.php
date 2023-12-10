@@ -12,7 +12,9 @@ use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\TeacherSeniorHighController;
 use App\Http\Controllers\RegistrarController;
-
+use App\Http\Controllers\NotificationController;
+use Illuminate\Support\Facades\Broadcast;
+use Illuminate\Http\Request;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -31,6 +33,7 @@ Route::get('/', function () {
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
 // })->middleware(['auth', 'verified'])->name('dashboard');
+
 
 
 route::get('/home',[HomeController::class,'index'])->middleware('auth')->name('home');
@@ -83,7 +86,7 @@ Route::group(['middleware' => 'checkRole:admin'], function () {
     Route::get('/admin/ClassSchedule/{enrollment_type}/{course}/{school_year}', [ScheduleController::class, 'ShowSchedule'])->name('ShowSchedule');
 
     Route::get('/admin/ClassScheduleV2/{role}/{enrollment_type}/{course}/{school_year}', [ScheduleController::class, 'ShowScheduleV2'])->name('ShowScheduleV2');
-
+   
     
     Route::post('/updateSchedule', [ScheduleController::class, 'updateSchedule'])->name('updateSchedule');
     Route::post('/CreateSchedule', [ScheduleController::class, 'CreateSchedule'])->name('CreateSchedule');
@@ -94,6 +97,8 @@ Route::group(['middleware' => 'checkRole:admin'], function () {
     Route::get('/admin/transaction-history', [AdminController::class, 'showAdminPayments'])->name('showAdminPayments');
     Route::get('/admin-search-transaction-history', [AdminController::class, 'SearchTransaction'])->name('admin-search-transaction-history');
     Route::get('/admin-update-fee', [AdminController::class, 'ViewMiscfees'])->name('admin-update-fee');
+
+   
 });
 
 Route::group(['middleware' => 'checkRole:student'], function () {
@@ -242,6 +247,9 @@ Route::group(['middleware' => 'checkRole:teachercollege'], function () {
 
 
 Route::middleware('auth')->group(function () {
+    Route::post('/updateStudentProfileManagement', [StudentController::class, 'updateStudentProfileManagement'])->name('updateStudentProfileManagement');
+    Route::post('/mark-as-read/{notification}', [NotificationController::class, 'markAsRead'])->name('mark-as-read');
+
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');

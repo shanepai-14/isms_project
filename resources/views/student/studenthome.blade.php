@@ -80,17 +80,89 @@
                     <li><a class="dropdown-item" href="#">This Year</a></li>
                   </ul>
                 </div>
+                @php
+        $userunits = 0;
+   if($courses != null){
+    foreach($courses as $subjects){
+      $userunits += $subjects->units;
+    }
+
+   }
+                 
+
+
+
+
+
+$userscholar = $enrollment->scholarship;
+
+  $total = 
+  $enrollment->registration +
+  $enrollment->module +
+  $enrollment->testing_fee + 
+  $enrollment->library +
+  $enrollment->instructional_materials +
+  $enrollment->group_insurance +
+  $enrollment->handbook +
+  $enrollment->student_id +
+  $enrollment->energy +
+  $enrollment->facility_improvement +
+  $enrollment->internet +
+  $enrollment->maintenance_breakage+
+  $enrollment->medical +
+  $enrollment->athletic + // Add + here
+  $enrollment->guidance_counseling +
+  $enrollment->school_publication +
+  $enrollment->student_organization +
+  $enrollment->computer_laboratory +
+  $enrollment->insurance +
+  $enrollment->development +
+  $enrollment->science_laboratory +
+  $enrollment->academic_cultural +
+  $enrollment->audio_visual;
+
+  $tuition = 0;
+  $portion = 0;
+if($enrollment->course == "BSIT"){
+  $total += $enrollment->comlab_bsit;
+}
+if( $enrollment->enrollment_type == "college"){
+  $userscholar /= 100;
+  
+  
+  $tuition  = $userunits * $enrollment->units;
+  $portion = $tuition * $userscholar;
+ 
+}
+if( $enrollment->enrollment_type == "Senior High"){
+  $tuition  = $enrollment->units;
+}
+$finaltuition = $tuition - $portion;
+
+
+
+                $newpayment = 0;
+                @endphp
+                @foreach ($enrollment->payments as $payment)
+                @php
+                  
+             $newpayment += $payment->amount;
+            
+                @endphp
+                  
+             @endforeach
 
                 <div class="card-body">
-                  <h5 class="card-title">Balance <span>| This Semester</span></h5>
+                  <h5 class="card-title">Tuition Fee<span>| This Semester</span></h5>
 
                   <div class="d-flex align-items-center">
                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                       <i class="bi bi-currency-dollar"></i>
                     </div>
                     <div class="ps-3">
-                      <h6>₱10,264</h6>
-                      <span class="text-success small pt-1 fw-bold">₱12,000</span> <span class="text-muted small pt-2 ps-1">Total tuition</span>
+                      <h6>Paid - ₱{{$newpayment}}</h6>
+                
+                      <span class="text-success small pt-1 fw-bold">₱{{$finaltuition+$total}}</span> <span class="text-muted small pt-2 ps-1">Total tuition</span>
 
                     </div>
                   </div>
@@ -125,8 +197,8 @@
                       <i class="bi bi-people"></i>
                     </div>
                     <div class="ps-3">
-                      <h6>2,200</h6>
-                      <span class="text-danger small pt-1 fw-bold">Paid</span> <span class="text-muted small pt-2 ps-1">Final</span>
+                      <h6>₱{{(($finaltuition+$total)-$enrollment->registration)/4}}</h6>
+                      <span class="text-danger small pt-1 fw-bold">Balance</span> <span class="text-muted small pt-2 ps-1">₱{{($finaltuition+$total)-$newpayment}}</span>
 
                     </div>
                   </div>
@@ -293,7 +365,14 @@
                   <td>{{$subjects->course_code}}</td>
                   <td>{{$subjects->course_description}}</td>
                   <td>{{$subjects->name}}</td>
-                  <td>{{$subjects->schedule}}</td>
+                  @php
+                  $schedule = $subjects->schedule;
+                  $days = explode('/', $schedule);
+                    @endphp
+                 <td style="font-size:13px;">@foreach($days as $day)
+                  {{ $day }}<br>
+                  
+                  @endforeach</td>
                 </tr>
                 @endforeach
                 @else

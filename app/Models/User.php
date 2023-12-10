@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\StudentProfile;
+use Illuminate\Notifications\HasDatabaseNotifications;
 
 class User extends Authenticatable
 {
@@ -40,6 +41,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(Enrollment::class);
     }
+    public function unreadNotifications()
+{
+    return $this->notifications()->where('read_at', null);
+}
 
     /**
      * The attributes that should be hidden for serialization.

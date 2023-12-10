@@ -43,7 +43,56 @@ class StudentController extends Controller
         $courses ='';
         try{
         $enrollment = Enrollment::where('user_id', $user_id)
-        ->orderBy('enrollments.created_at', 'desc')->first();
+        ->orderBy('enrollments.created_at', 'desc')
+        ->join('miscellaneous_fees', function ($join) {
+            $join->on('miscellaneous_fees.enrollment_type', '=', 'enrollments.enrollment_type')
+                ->on('miscellaneous_fees.semester', '=', 'enrollments.semester')
+                ->on('miscellaneous_fees.school_year', '=', 'enrollments.school_year');
+        })
+        ->select(
+            'enrollments.id',
+            'enrollments.uuid',
+            'enrollments.user_id',
+            'enrollments.semester',
+            'enrollments.school_year',
+            'enrollments.status',
+            'enrollments.enrollment_type',
+            'enrollments.remarks',
+            'enrollments.created_at',
+            'enrollments.year',
+            'enrollments.course',
+            'enrollments.student_type',
+            'enrollments.job_order',
+            'enrollments.scholarship',
+            'enrollments.scholarship_type',
+            'miscellaneous_fees.registration',
+            'miscellaneous_fees.medical',
+            'miscellaneous_fees.athletic',
+            'miscellaneous_fees.guidance_counseling',
+            'miscellaneous_fees.school_publication',
+            'miscellaneous_fees.student_organization',
+            'miscellaneous_fees.library',
+            'miscellaneous_fees.computer_laboratory',
+            'miscellaneous_fees.insurance',
+            'miscellaneous_fees.handbook',
+            'miscellaneous_fees.development',
+            'miscellaneous_fees.energy',
+            'miscellaneous_fees.maintenance_breakage',
+            'miscellaneous_fees.science_laboratory',
+            'miscellaneous_fees.academic_cultural',
+            'miscellaneous_fees.student_id',
+            'miscellaneous_fees.internet',
+            'miscellaneous_fees.audio_visual',
+            'miscellaneous_fees.units',
+            'miscellaneous_fees.module',
+            'miscellaneous_fees.testing_fee', 
+            'miscellaneous_fees.instructional_materials', 
+            'miscellaneous_fees.group_insurance', 
+            'miscellaneous_fees.facility_improvement',
+            'miscellaneous_fees.comlab_bsit'
+        )
+        ->with('payments')
+        ->first();
     
         $enrollmentid= $enrollment->id;
         $enrollmentschool_year= $enrollment->school_year;
@@ -55,7 +104,7 @@ class StudentController extends Controller
                  ->where('schedules.school_year', '=', $enrollmentschool_year);
         })
        ->leftjoin('users', 'schedules.teacher_id', '=', 'users.id')
-        ->select('courses.course_code', 'courses.course_description', 'users.name', 'schedules.schedule')->get();
+        ->select('courses.course_code', 'courses.course_description','courses.units', 'users.name', 'schedules.schedule')->get();
 
         return view('student.studenthome',compact('enrollment','courses'));
     }catch(\Exception $e){
@@ -223,6 +272,76 @@ class StudentController extends Controller
     }
    
 }
+
+public function updateStudentProfileManagement(Request $request)
+{
+
+    try{
+    $request->validate([
+        'first_name' => 'required|string|max:20',
+        'middle_name' => 'required|string|max:20',
+        'last_name' => 'required|string|max:20',
+        'gender' => 'required|string|max:10',
+        'users_contact_number' => 'required|string|max:11',
+        'date_of_birth' => 'date',
+        'father_fullname' => 'required|string|max:50',
+        'mother_fullname' => 'required|string|max:50',
+        'parent_contact_number' => 'required|string|max:11',
+        'address' => 'required|string|max:255',
+        'mode_of_learning' =>'required|string|max:50',
+        'scholarship_type'=>'required|string|max:50',
+
+        // Add validation rules for other attributes
+    ]);
+           $studentuuid   = $request->input('uuid');
+           $enrollmentid = $request->input('id');
+            $studentProfile = StudentProfile::where('uuid',$studentuuid)->first();
+            $Enrollment = Enrollment::where('id',$enrollmentid)->first();
+  
+    
+        if ($studentProfile && $Enrollment) {
+            $studentProfile->update([
+                'first_name' => $request->input('first_name'),
+                'middle_name' => $request->input('middle_name'),
+                'last_name' => $request->input('last_name'),
+                'gender' => $request->input('gender'),
+                'users_contact_number' =>$request->input('users_contact_number'),
+                'date_of_birth' => $request->input('date_of_birth'),
+                'father_fullname' => $request->input('father_fullname'),
+                'mother_fullname' =>$request->input('mother_fullname'),
+                'parent_contact_number' => $request->input('parent_contact_number'),
+                'address' => $request->input('address'),
+                // Update other attributes as needed
+            ]);
+
+            $Enrollment->update([
+                'mode_of_learning' => $request->input('mode_of_learning'),
+                'scholarship_type' => $request->input('scholarship_type'),
+            ]);
+
+
+
+            $Enrollment->save();
+            $studentProfile->save();
+       
+
+
+
+           return redirect()->back()->with('message', 'student profile updated successfully.');
+        } else {
+    
+           dd($studentProfile);
+            return redirect()->back()->with('error', 'Profile not found.');
+        }
+    }catch(\Exception $e) {
+       dd($e);
+         return redirect()->back()->with('error', 'An error occurred while updating the profile.');
+    }
+   
+}
+
+
+
     public function showStudentProfiles($id)
 {
     $studentProfile = StudentProfile::find($id);

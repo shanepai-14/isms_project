@@ -142,7 +142,7 @@
               <i class="bi bi-circle" ></i><span>Profile</span>
             </a>
           </li>
-          <li>
+          <li hidden>
             <a href="#">
               <i class="bi bi-receipt"style="font-size: 1rem;"></i><span>Financial Statement</span>
             </a>

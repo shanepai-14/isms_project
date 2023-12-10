@@ -152,7 +152,7 @@ table {
                                             </div>
                                         </div>
                                     </div>
-                                    <select name="cars" id="SemesterSelect" >
+                                    <select name="cars" id="SemesterSelect" hidden>
                                         <option value="1st Semester">1st Semester</option>
                                         <option value="2nd Semester">2nd Semester</option>
                                       </select>
@@ -733,7 +733,7 @@ $(document).on('click', 'input[name="subject"]', function() {
                     enrollmentType: $('#reviewEnrollmentType').text(),
                     courseCode: $('#reviewCourse').text(),
                     yearLevel: year,
-                    activeSemester: selectedValue,
+                    activeSemester: semester,
                 },
                   headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
