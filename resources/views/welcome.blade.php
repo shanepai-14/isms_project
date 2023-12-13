@@ -13,13 +13,14 @@ http://www.templatemo.com/tm-509-hydro
      <meta name="keywords" content="">
      <meta name="author" content="">
      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-
+  
      <link rel="stylesheet" href="{{ asset("assets/landing/css/bootstrap.min.css")}}">
      <link rel="stylesheet" href="{{ asset("assets/landing/css/magnific-popup.css")}}">
      <link rel="stylesheet" href="{{ asset("assets/landing/css/font-awesome.min.css")}}">
 
      <!-- MAIN CSS -->
      <link rel="stylesheet" href="{{ asset("assets/landing/css/templatemo-style.css")}}">
+    
 </head>
 <body>
 
@@ -111,11 +112,9 @@ http://www.templatemo.com/tm-509-hydro
                          <div class="home-video">
 
                               <div class="embed-responsive embed-responsive-16by9">
-                                   {{-- <iframe width="560" height="315" src="https://www.youtube.com/embed/Ljo0s9JC_fc?si=a13IJbBBnjBZtXD_" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe> --}}
+                               
                                    <iframe width="560" height="310" src="https://www.youtube.com/embed/9u0k8ao8cVE?si=GaFfoW_YVNWrfTzU&amp;start=1?autoplay=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-                                   {{-- <iframe src="https://www.facebook.com/plugins/video.php?height=314&href=https%3A%2F%2Fwww.facebook.com%2FDVCians%2Fvideos%2F6396058087082573%2F&show_text=false&width=560&t=0" width="560" height="314" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowFullScreen="true"></iframe>
-
-                                   <iframe width="560" height="315" src="https://www.youtube.com/embed/dQw4w9WgXcQ?si=TvURSCTZeojpuwo0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe> --}}
+                          
                               </div>
                          </div>
                     </div>
@@ -126,7 +125,7 @@ http://www.templatemo.com/tm-509-hydro
 
 
      <!-- ABOUT -->
-     <section id="about" data-stellar-background-ratio="0.5">
+     <section id="about" data-stellar-background-ratio="0.5" style="padding-bottom: 80px;">
           <div class="container">
                <div class="row">
 
@@ -137,13 +136,15 @@ http://www.templatemo.com/tm-509-hydro
                                    <span class="line-bar">...</span>
                               </div>
                            
-                              <p> Davao Vision Colleges DVC is an educational institution founded on 2009 providing quaity and affordable education in the province of Catalunan Grande, Davao City.</p>
+                              <p> Davao Vision Colleges DVC is an educational institution founded on 2009 providing quaity and affordable education in the province of Catalunan Grande, Davao City.<br>
+                                   If you are seeking an exceptional educational institution that prioritizes academic excellence, character development, and holistic growth, we invite you to join the DVC family. Together, let's embark on a transformative journey that will shape a brighter future.</p>
                          
                          </div>
                     </div>
 
-                    <div class="col-md-3 col-sm-6">
-                         <div class="about-info skill-thumb">
+                    <div class="col-md-7 col-sm-6">
+                         
+                         {{-- <div class="about-info skill-thumb">
 
                               <strong>Facility</strong>
                                    <span class="pull-right">85%</span>
@@ -169,14 +170,50 @@ http://www.templatemo.com/tm-509-hydro
                                              <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width: 70%;"></div>
                                         </div>
 
-                         </div>
+                         </div> --}}
+
+                     
+                              <div id="myCarousel" class="carousel slide" data-ride="carousel" >
+                                <!-- Indicators -->
+                                <ol class="carousel-indicators">
+                                  <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                                  <li data-target="#myCarousel" data-slide-to="1"></li>
+                                  <li data-target="#myCarousel" data-slide-to="2"></li>
+                                </ol>
+                            
+                                <!-- Wrapper for slides -->
+                                <div class="carousel-inner" role="listbox">
+                                  <div class="item active">
+                                    <img src="{{ asset("assets/images/students1.jpg") }}" alt="Slide 1" >
+                                  </div>
+                            
+                                  <div class="item">
+                                    <img src="{{ asset("assets/images/students2.jpg") }}" alt="Slide 2" >
+                                  </div>
+                            
+                                  <div class="item">
+                                    <img src="{{ asset("assets/images/students3.jpg") }}" alt="Slide 3" >
+                                  </div>
+                                </div>
+                            
+                                <!-- Left and right controls -->
+                                <a class="left carousel-control" style="display:flex; align-items: center;  justify-content: center;" href="#myCarousel" role="button" data-slide="prev" >
+                                   <span class="text-center" style="vertical-align: middle">←</span>
+                                  <span class="sr-only">Previous</span>
+                                </a>
+                                <a class="right carousel-control" style="display:flex; align-items: center;  justify-content: center;" href="#myCarousel" role="button" data-slide="next">
+                                  <span" aria-hidden="true">→</span>
+                                  <span class="sr-only">Next</span>
+                                </a>
+                           
+                            </div>
                     </div>
 
-                    <div class="col-md-4 col-sm-12">
+                    {{-- <div class="col-md-4 col-sm-12">
                          <div class="about-image">
                               <img src="{{ asset("assets/images/dvc-logo.png")}}" width="270x"  alt="" >
                          </div>
-                    </div>
+                    </div> --}}
                     
                </div>
           </div>
@@ -362,13 +399,13 @@ http://www.templatemo.com/tm-509-hydro
 
                               <div class="col-md-6 col-sm-6">
                                    <select class="form-control" id="cf-budgets" name="cf-budgets">
-                                        <option>Budget Level</option>
-                                        <option>$500 to $1,000</option>
-                                        <option>$1,000 to $2,200</option>
-                                        <option>$2,200 to $4,500</option>
-                                        <option>$4,500 to $7,500</option>
-                                        <option>$7,500 to $12,000</option>
-                                        <option>$12,000 or more</option>
+                                        <option>Year Level</option>
+                                        <option>1st Year</option>
+                                        <option>2nd Year</option>
+                                        <option>3rd Year</option>
+                                        <option>4th Year</option>
+                                        <option>Grade 11</option>
+                                        <option>Grade 12</option>
                                    </select>
                               </div>
 
@@ -407,14 +444,14 @@ http://www.templatemo.com/tm-509-hydro
 
                     <div class="col-md-5 col-sm-12">
                          <div class="footer-thumb footer-info"> 
-                              <h2>Hydro Company</h2>
-                              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                              <h2>Davao Vision College</h2>
+                              <p>Discover the endless possibilities at 𝐃𝐀𝐕𝐀𝐎 𝐕𝐈𝐒𝐈𝐎𝐍 𝐂𝐎𝐋𝐋𝐄𝐆𝐄𝐒, 𝐈𝐍𝐂. Enroll today and witness your potential blossom into remarkable achievements!</p>
                          </div>
                     </div>
 
                     <div class="col-md-2 col-sm-4"> 
                          <div class="footer-thumb"> 
-                              <h2>Company</h2>
+                              <h2>Facilities</h2>
                               <ul class="footer-link">
                                    <li><a href="#">About Us</a></li>
                                    <li><a href="#">Join our team</a></li>
@@ -426,11 +463,11 @@ http://www.templatemo.com/tm-509-hydro
 
                     <div class="col-md-2 col-sm-4"> 
                          <div class="footer-thumb"> 
-                              <h2>Services</h2>
+                              <h2>Education</h2>
                               <ul class="footer-link">
-                                   <li><a href="#">Pricing</a></li>
-                                   <li><a href="#">Documentation</a></li>
-                                   <li><a href="#">Support</a></li>
+                                   <li><a href="#">Tuition</a></li>
+                                   <li><a href="#">Courses</a></li>
+                                   <li><a href="#">Inquiries</a></li>
                               </ul>
                          </div>
                     </div>
@@ -438,7 +475,7 @@ http://www.templatemo.com/tm-509-hydro
                     <div class="col-md-3 col-sm-4"> 
                          <div class="footer-thumb"> 
                               <h2>Find us</h2>
-                              <p>123 Grand Rama IX, <br> Krung Thep Maha Nakhon 10400</p>
+                              <p>Stone Rock Village,<br>Catalunan Grande, Davao City</p>
                          </div>
                     </div>                    
 
@@ -446,15 +483,15 @@ http://www.templatemo.com/tm-509-hydro
                          <div class="footer-bottom">
                               <div class="col-md-6 col-sm-5">
                                    <div class="copyright-text"> 
-                                        <p>Copyright &copy; 2017 Your Company</p>
+                                        <p>Copyright &copy; 2009 Davao Vision College INC.</p>
                                    </div>
                               </div>
                               <div class="col-md-6 col-sm-7">
                                    <div class="phone-contact"> 
-                                        <p>Call us <span>(+66) 010-020-0340</span></p>
+                                        <p>Call us <span>082-227-8337</span></p>
                                    </div>
                                    <ul class="social-icon">
-                                        <li><a href="https://www.facebook.com/templatemo" class="fa fa-facebook-square" attr="facebook icon"></a></li>
+                                        <li><a href="https://www.facebook.com/DVCians" class="fa fa-facebook-square" attr="facebook icon"></a></li>
                                         <li><a href="#" class="fa fa-twitter"></a></li>
                                         <li><a href="#" class="fa fa-instagram"></a></li>
                                    </ul>
@@ -525,12 +562,14 @@ http://www.templatemo.com/tm-509-hydro
      </section>
 
      <!-- SCRIPTS -->
+   
      <script src="{{ asset("assets/landing/js/jquery.js")}}"></script>
      <script src="{{ asset("assets/landing/js/bootstrap.min.js")}}"></script>
      <script src="{{ asset("assets/landing/js/jquery.stellar.min.js")}}"></script>
      <script src="{{ asset("assets/landing/js/jquery.magnific-popup.min.js")}}"></script>
      <script src="{{ asset("assets/landing/js/smoothscroll.js")}}"></script>
      <script src="{{ asset("assets/landing/js/custom.js")}}"></script>
+
 
 </body>
 </html>
